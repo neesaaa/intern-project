@@ -60,21 +60,21 @@ const Landing = () => {
                 </section>
                 <section>
                     <div className='container mx-auto flex flex-col gap-15'>
-                        <div className='flex justify-between items-center'>
+                        <div className='flex flex-col md:flex-row justify-between items-center'>
                             <img src={womanImg} alt="" className='max-w-100' />
-                            <Herotext style={'max-w-150'} buttonText={"Start you Instructor Journey"} buttonStyle={'bg-black'} h1={'Become an Instructor'} h2={'Instructors from around the world teach\
+                            <Herotext style={'max-w-150 text-center md:text-start'} buttonText={"Start you Instructor Journey"} buttonStyle={'bg-black'} h1={'Become an Instructor'} h2={'Instructors from around the world teach\
                                     millions of students on Byway. We provide the tools and skills to teach\
                                     what you love.'} />
                         </div>
-                        <div className='flex justify-between items-center'>
-                            <Herotext style={'max-w-150'} buttonText={"Start you Instructor Journey"} buttonStyle={'bg-black'} h1={'Learners around the world are launching new careers, advancing in their fields, and enriching their lives.'} />
+                        <div className='flex flex-col md:flex-row justify-between items-center'>
+                            <Herotext style={'max-w-150 text-center md:text-start'} buttonText={"Start you Instructor Journey"} buttonStyle={'bg-black'} h1={'Transform your life through education'} h2={'Learners around the world are launching new careers, advancing in their fields, and enriching their lives.'} />
                             <img src={blueman} alt="" />
                         </div>
                     </div>
                 </section>
                 <footer>
                     <div className='bg-gray-800 p-20 gap-10'>
-                        <div className='container mx-auto flex justify-between'>
+                        <div className='container mx-auto flex flex-col gap-5 md:flex-row justify-between'>
                             <div className='flex flex-col  gap-2'>
                                 <Logo color />
                                 <p className='text-sm laeding-1.5 max-w-75'>Empowering learners through accessible and engaging online education.
