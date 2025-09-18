@@ -1,9 +1,9 @@
-import logo from '../../assets/navbar/logo.png'
 import SearchBar from './SearchBar'
 import AuthLinks from './AuthLinks'
 import LoginedNav from './LoginedNav'
 import { useAtom } from 'jotai'
 import { tokenAtom } from '../../atoms/authAtom';
+import Logo from './Logo'
 const NavBar = () => {
     const [token] = useAtom(tokenAtom);
 
@@ -11,10 +11,7 @@ const NavBar = () => {
     return (
         <div className='flex justify-between gap-2'>
             <div className='flex md:w-[55vw] gap-2 md:gap-[40px]'>
-                <div className='flex gap-1 items-center flex-none cursor-pointer'>
-                    <img src={logo} alt="logo" className='h-10 ' />
-                    <h1 className='text-base font-medium text-gray-800'>ByWay</h1>
-                </div>
+                <Logo />
                 <SearchBar />
             </div>
             {token ? <LoginedNav /> : <AuthLinks />}
