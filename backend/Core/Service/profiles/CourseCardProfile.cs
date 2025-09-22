@@ -1,0 +1,24 @@
+﻿using AutoMapper;
+using DomainLayer.Models;
+using Shared.CourseDtos;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Service.profiles
+{
+    public class CourseCardProfile : Profile
+    {
+        public CourseCardProfile()
+        {
+            CreateMap<Course, CourseCardDto>()
+                .ForMember(dto=>dto.ImageUrl , options => options.MapFrom<PictureUrlResolver>() )
+                .ForMember(dest => dest.InstructorName , options => options.MapFrom(src => src.Instructor.Name))
+                .ForMember(dest => dest.TotalLectures , options => options.MapFrom(src=>src.Sections.Sum(x=>x.LecturesNumber)))
+                .ForMember(dest => dest.TotlaHours, options => options.MapFrom(src => src.Sections.Sum(x => x.TotalHours)));
+            
+        }
+    }
+}

@@ -1,4 +1,8 @@
 
+using DomainLayer.Contracts;
+using Microsoft.EntityFrameworkCore;
+using persistence.Data;
+
 namespace UdemyApp
 {
     public class Program
@@ -12,6 +16,9 @@ namespace UdemyApp
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+            builder.Services.AddDbContext<StoreDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 
             var app = builder.Build();
 
@@ -24,6 +31,7 @@ namespace UdemyApp
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
+            app.UseStaticFiles();
 
 
             app.MapControllers();
