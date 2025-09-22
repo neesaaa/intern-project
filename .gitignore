@@ -4,9 +4,9 @@ frontend/user-dashboard/dist/
 frontend/user-dashboard/.next/
 
 # backend (ASP.NET Core)
-backend/.vs/
-backend/bin/
-backend/obj/
+backend/UdemyApp/.vs/
+backend/UdemyApp/bin/
+backend/UdemyApp/obj/
 
 # common
 *.user
