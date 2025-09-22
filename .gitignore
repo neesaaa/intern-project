@@ -1,7 +1,7 @@
 # frontend
-frontend/node_modules/
-frontend/dist/
-frontend/.next/
+frontend/user-dashboard/node_modules/
+frontend/user-dashboard/dist/
+frontend/user-dashboard/.next/
 
 # backend (ASP.NET Core)
 backend/.vs/
