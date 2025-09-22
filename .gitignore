@@ -1,0 +1,28 @@
+# frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.next/
+
+# backend (ASP.NET Core)
+backend/.vs/
+backend/bin/
+backend/obj/
+
+# common
+*.user
+*.suo
+*.db
+# frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.next/
+
+# backend (ASP.NET Core)
+backend/.vs/
+backend/bin/
+backend/obj/
+
+# common
+*.user
+*.suo
+*.db

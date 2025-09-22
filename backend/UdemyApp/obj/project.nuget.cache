@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "+pIIEHLT2r0=",
+  "success": true,
+  "projectFilePath": "E:\\New folder\\intern project\\backend\\UdemyApp\\UdemyApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Future\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.8\\microsoft.aspnetcore.openapi.9.0.8.nupkg.sha512",
+    "C:\\Users\\Future\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
