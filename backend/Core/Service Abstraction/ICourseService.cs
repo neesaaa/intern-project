@@ -1,4 +1,5 @@
-﻿using Shared.CourseDtos;
+﻿using Shared;
+using Shared.CourseDtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Service_Abstraction
 {
     public interface ICourseService
     {
-        Task<IEnumerable<CourseCardDto>> GetAllCoursesAsync();
+        Task<PaginatedResult<CourseCardDto>> GetAllCoursesAsync(SearchParams parameters);
     }
 }

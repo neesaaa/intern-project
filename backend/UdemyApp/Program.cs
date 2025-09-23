@@ -19,6 +19,15 @@ namespace UdemyApp
             builder.Services.AddDbContext<StoreDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("Allow All", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                });
+            });
 
             var app = builder.Build();
 
@@ -29,6 +38,8 @@ namespace UdemyApp
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("AllowAll");
 
             app.UseAuthorization();
             app.UseStaticFiles();

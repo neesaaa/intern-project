@@ -10,10 +10,13 @@ namespace DomainLayer.Contracts
     public interface IGenericRepo<T> where T: BaseEntity
     {
             Task<IEnumerable<T>> GetAllAsync();
+            Task<IEnumerable<T>> GetAllAsync(ISpecification<T> specs);
             Task<T?> GetByIdAsync(int id);
+            Task<int> CountAsync(ISpecification<T> specs);
             Task AddAsync(T Entity);
             void Update(T Entity);
             void Remove(T Entity);
+       
 
     }
 }
