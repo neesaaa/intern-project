@@ -10,7 +10,7 @@ namespace Shared.CourseDtos
     {
         public string Name { get; set; } = default!;
         public string InstructorName { get; set; } = default!;
-        public decimal Rating { get; set; }
+        public decimal Rate { get; set; }
         public int TotalLectures { get; set; }
         public decimal TotlaHours { get; set; }
         public decimal Cost { get; set; }

@@ -22,7 +22,12 @@ namespace UdemyApp
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                   .AddJsonOptions(options =>
+                   {
+                       // Preserve PascalCase in the JSON output
+                       options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                   });
             var loggerFactory = LoggerFactory.Create(builder =>
             {
                 builder.AddConsole();
@@ -62,7 +67,7 @@ namespace UdemyApp
 
             app.UseHttpsRedirection();
 
-            app.UseCors("AllowAll");
+            app.UseCors("Allow All");
 
             app.UseAuthorization();
             app.UseStaticFiles();
