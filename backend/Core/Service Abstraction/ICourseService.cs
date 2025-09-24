@@ -10,6 +10,8 @@ namespace Service_Abstraction
 {
     public interface ICourseService
     {
-        Task<PaginatedResult<CourseCardDto>> GetAllCoursesAsync(SearchParams parameters);
+        Task<PaginatedResult<CourseCardDto>> GetAllCoursesAsync(CourseSearchParams parameters);
+        Task<PaginatedResult<InstructorCardDto>> GetAllInstructorsAsync(CourseSearchParams parameters);
+
     }
 }

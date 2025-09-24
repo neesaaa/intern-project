@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
-namespace persistence.Data
+namespace persistence
 {
     public static class SpecificationEvaluator
     {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shared.CourseDtos
 {
-    public class SearchParams
+    public class CourseSearchParams
     {
         private int _take = 10;
         private const int MaxPageSize = 50; 
@@ -19,10 +19,10 @@ namespace Shared.CourseDtos
         public string? Filter { get; set; }
 
         public string? OrderBy { get; set; }          
-        public string? OrderByDesc { get; set; }      
+        public string? OrderByDesc { get; set; }
 
-      
-        public int Skip { get; set; }                
+
+        public int Skip { get; set; } = 1;           
 
     
         public bool IsPagingEnabled { get; set; } = false;
