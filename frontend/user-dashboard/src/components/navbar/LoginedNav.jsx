@@ -10,7 +10,7 @@ const LoginedNav = () => {
         setToken(null);
     }
     return (
-        <div className='flex items-center gap-4 '>
+        <div className='flex items-center gap-2 md:gap-4 '>
             <ShoppingCartIcon />
             <button onClick={logoutHandle} className='hover:scale-110 rounded-full  cursor-pointer'>
                 <img src={logOut} alt='log out icon' />
