@@ -3,23 +3,21 @@ using Shared.CourseDtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Service.Specifications.CourseSpecifications
 {
-    public class CourseSpecification:BaseSpecification<Course>
+    public class InstructorSpecification:BaseSpecification<Instructor>
     {
-        public CourseSpecification(CourseSearchParams paramters)
-        {
-            AddInclude(c => c.Instructor);
-            AddInclude(c => c.Sections);
+        public InstructorSpecification(CourseSearchParams paramters) {
             AddOrderByDesc(c => c.Rate);
             if (paramters.IsPagingEnabled)
             {
                 ApplyPaging(paramters.Skip, paramters.Take);
             }
-
         }
+
     }
 }

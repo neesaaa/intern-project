@@ -2,10 +2,10 @@ import SearchBar from './SearchBar'
 import AuthLinks from './AuthLinks'
 import LoginedNav from './LoginedNav'
 import { useAtom } from 'jotai'
-import { tokenAtom } from '../../atoms/authAtom';
+import { tokenValidAtom } from '../../atoms/authAtom';
 import Logo from './Logo'
 const NavBar = () => {
-    const [token] = useAtom(tokenAtom);
+    const [isTokenValid] = useAtom(tokenValidAtom);
 
 
     return (
@@ -14,7 +14,7 @@ const NavBar = () => {
                 <Logo />
                 <SearchBar />
             </div>
-            {token ? <LoginedNav /> : <AuthLinks />}
+            {isTokenValid ? <LoginedNav /> : <AuthLinks />}
         </div>
     )
 }

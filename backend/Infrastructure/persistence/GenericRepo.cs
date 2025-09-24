@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace persistence.Data
+namespace persistence
 {
     public class GenericRepo<T>(StoreDbContext _context) : IGenericRepo<T> where T : BaseEntity
     {

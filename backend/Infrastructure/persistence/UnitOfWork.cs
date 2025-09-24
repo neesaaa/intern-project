@@ -6,16 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace persistence.Data
+namespace persistence
 {
     public class UnitOfWork(StoreDbContext _context) : IUnitOfWork
     {
-        private readonly Dictionary<String,object> repos = [];
+        private readonly Dictionary<string,object> repos = [];
         public IGenericRepo<TEntity> GetRepo<TEntity>() where TEntity : BaseEntity
         {
             var typename=typeof(TEntity).Name;
             if(repos.ContainsKey(typename))
-                return (repos[typename]) as IGenericRepo<TEntity>;
+                return repos[typename] as IGenericRepo<TEntity>;
             var repo = new GenericRepo<TEntity>(_context); 
             repos.Add(typename, repo);
             return repo;

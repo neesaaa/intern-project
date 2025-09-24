@@ -16,7 +16,15 @@ namespace persentation.Controllers
     public class CourseController(ICourseService _service): ControllerBase
     {
         [HttpGet("Courses")]
-        public async Task<IActionResult> GetAllCoursesAsync([FromQuery] SearchParams queryParams)
+        public async Task<IActionResult> GetAllCoursesAsync([FromQuery] CourseSearchParams queryParams)
+        {
+            var PaginatedRes = await _service.GetAllCoursesAsync(queryParams);
+
+            return Ok(PaginatedRes);
+        }
+
+        [HttpGet("Instructors")]
+        public async Task<IActionResult> GetAllInstructorsAsync([FromQuery] CourseSearchParams queryParams)
         {
             var PaginatedRes = await _service.GetAllCoursesAsync(queryParams);
 

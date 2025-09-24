@@ -15,7 +15,7 @@ namespace Service
 {
     public class CourseService(IUnitOfWork _unit,IMapper _mapper) : ICourseService
     {
-        public async Task<PaginatedResult<CourseCardDto>> GetAllCoursesAsync(SearchParams parameters)
+        public async Task<PaginatedResult<CourseCardDto>> GetAllCoursesAsync(CourseSearchParams parameters)
         {
             var Repo = _unit.GetRepo<Course>();
             var Spec=new CourseSpecification(parameters);
@@ -28,6 +28,19 @@ namespace Service
              
         }
 
-       
+        public async Task<PaginatedResult<InstructorCardDto>> GetAllInstructorsAsync(CourseSearchParams parameters)
+        {
+            var Repo = _unit.GetRepo<Instructor>();
+            var spec= new InstructorSpecification(parameters);
+            var items = _mapper.Map<IEnumerable<Instructor>, IEnumerable<InstructorCardDto>>(await Repo.GetAllAsync(spec));
+
+            var totalSpecs = new InstructorTotalSpecs(parameters);
+            var total = await Repo.CountAsync(totalSpecs);
+
+            return new PaginatedResult<InstructorCardDto>(parameters.Skip, parameters.Take, total, items);
+
+
+
+        }
     }
 }
