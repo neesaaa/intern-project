@@ -17,8 +17,11 @@ namespace persistence.Data
             {
                 await _context.Database.MigrateAsync();
             }
-            var coursesexists= _context.Courses.AnyAsync();
-            if(!coursesexists)
+            var coursesexists= await _context.Courses.AnyAsync();
+            if (!coursesexists)
+            {
+
+            }
         }
 
 

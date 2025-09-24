@@ -14,7 +14,10 @@ namespace Service.profiles
         public CourseCardProfile()
         {
             CreateMap<Course, CourseCardDto>()
-                .ForMember(dto=>dto.ImageUrl , options => options.MapFrom<PictureUrlResolver>() )
+                .ForMember(dto => dto.ImageUrl, opt => opt.MapFrom(src =>
+                string.IsNullOrEmpty(src.ImageUrl)
+                    ? string.Empty
+                    : $"https://localhost:7031/{src.ImageUrl}"))
                 .ForMember(dest => dest.InstructorName , options => options.MapFrom(src => src.Instructor.Name))
                 .ForMember(dest => dest.TotalLectures , options => options.MapFrom(src=>src.Sections.Sum(x=>x.LecturesNumber)))
                 .ForMember(dest => dest.TotlaHours, options => options.MapFrom(src => src.Sections.Sum(x => x.TotalHours)));

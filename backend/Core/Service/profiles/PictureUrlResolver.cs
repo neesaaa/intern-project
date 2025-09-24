@@ -10,13 +10,17 @@ using System.Threading.Tasks;
 
 namespace Service.profiles
 {
-    internal class PictureUrlResolver(IConfiguration _configuration) : IValueResolver<Course, CourseCardDto, string>
+    public class PictureUrlResolver : IValueResolver<Course, CourseCardDto, string?>
     {
+        public PictureUrlResolver()
+        {
+
+        }
         public string Resolve(Course source, CourseCardDto destination, string destMember, ResolutionContext context)
         {
             if (string.IsNullOrEmpty(source.ImageUrl))
                 return string.Empty;
-            var url = $"{_configuration.GetSection("Urls")["BaseUrl"] }{ source.ImageUrl}";
+            var url = $"https://localhost:7031/{ source.ImageUrl}";
             return url;
         }
     }

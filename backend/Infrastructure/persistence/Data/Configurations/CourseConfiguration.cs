@@ -18,8 +18,6 @@
                 builder.Property(c => c.Cost)
                        .HasColumnType("decimal(18,2)");
 
-                builder.Property(c => c.Category)
-                       .HasConversion<string>();
 
 
             
