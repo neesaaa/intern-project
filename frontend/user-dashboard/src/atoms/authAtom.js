@@ -1,7 +1,7 @@
-import { atom  } from "jotai";
-import jwtDecode from 'jwt-decode'; 
+import { atom } from "jotai";
+import { jwtDecode } from 'jwt-decode';
 
-const intialToken=localStorage.getItem('token');
+const intialToken = localStorage.getItem('token');
 export const tokenAtom = atom(intialToken);
 
 export const tokenValidAtom = atom((get) => {
@@ -13,6 +13,6 @@ export const tokenValidAtom = atom((get) => {
         const now = Date.now() / 1000;
         return decoded.exp && decoded.exp > now;
     } catch {
-        return false; 
-  }
+        return false;
+    }
 });

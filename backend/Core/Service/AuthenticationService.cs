@@ -68,12 +68,12 @@ namespace Service
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
-            var secKey = _conf.GetSection("JWTOptions")["SecetKey"];
+            var secKey = _conf.GetSection("Jwt")["SecretKey"];
             var Key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secKey));
             var creds = new SigningCredentials(Key, SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken(
-                issuer: _conf.GetSection("JWTOptions")["Issuer"],
-                audience: _conf.GetSection("JWTOptions")["Audience"],
+                issuer: _conf.GetSection("Jwt")["Issuer"],
+                audience: _conf.GetSection("Jwt")["Audience"],
                 claims: claims,
                 expires: DateTime.Now.AddHours(1),
                 signingCredentials: creds

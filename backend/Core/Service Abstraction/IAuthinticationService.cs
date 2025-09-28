@@ -9,8 +9,8 @@ namespace Service_Abstraction
 {
     public interface IAuthinticationService
     {
-        Task<UserDto> LoginAsync(LoginDto loginDto);
-        Task<UserDto> RegisterAsync(SignupDto registerDto);
+         Task<UserDto> LoginAsync(LoginDto loginDto);
+         Task<UserDto> RegisterAsync(SignupDto registerDto);
 
     }
 }
