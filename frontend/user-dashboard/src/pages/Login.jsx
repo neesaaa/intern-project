@@ -20,7 +20,7 @@ const Login = () => {
             <div className='flex flex-col items-start  gap-2 '>
               <LoginInput name={"Password"} placeholder={'Enter Password'} labelText={'Password'} flex1={'w-full'}/>
             </div>
-            <LoginBtn nav={'/signin'} text={'Sign In'} onClick={}/>
+            <LoginBtn nav={'/signin'} text={'Sign In'} />
             <LoginSeprator text={'Login in with'} />
             <div className="flex  items-center justify-between gap-2">
               <LoginPlatform img={face} text={'Facebook'} />
