@@ -44,6 +44,7 @@ namespace Service
                 UserName = registerDto.UserName
             };
             var result = await _userManager.CreateAsync(user, registerDto.Password);
+
             if (result.Succeeded)
             {
                 return new UserDto
@@ -53,7 +54,10 @@ namespace Service
                     Token = await CreateTokenAsync(user)
                 };
             }
-            throw new Exception("Problem in user creation");
+
+            // Return detailed errors
+            var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+            throw new Exception($"Problem creating user: {errors}");
         }
         private async Task<string> CreateTokenAsync(ApplicationUser user)
         {
