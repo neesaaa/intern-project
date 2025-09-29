@@ -2,6 +2,7 @@
 using DomainLayer.Contracts;
 using DomainLayer.Models;
 using DomainLayer.Models.identity;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ using Service.profiles;
 using Service_Abstraction;
 using Shared.CourseDtos;
 using System.Reflection;
+using UdemyApp.CustomMidlleWare;
 
 
 namespace UdemyApp
@@ -55,9 +57,13 @@ namespace UdemyApp
 
             builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
             builder.Services.AddScoped<ICourseService, CourseService>();
+            builder.Services.AddScoped<IAuthinticationService, AuthenticationService>();
 
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>().
-                AddEntityFrameworkStores<JWTIdentityDbContext>();
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+            })
+            .AddEntityFrameworkStores<JWTIdentityDbContext>();
 
             builder.Services.AddCors(options =>
             {
@@ -88,12 +94,14 @@ namespace UdemyApp
             });
 
             var app = builder.Build();
+            app.UseMiddleware<CustomException>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
             }
+            
 
             app.UseHttpsRedirection();
 

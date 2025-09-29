@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Exceptions
 {
-    public class NotFoundEmail(string email) : NotFoundException($"your email {email} can't be found")
+    public class BadRequestException() : Exception("Validation failed")
     {
     }
 }
