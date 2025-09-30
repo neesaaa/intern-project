@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,10 +9,10 @@ namespace DomainLayer.Models
 {
     public enum Category
     {
-        Development,           // Programming, Web, Mobile
-        Business,              // Entrepreneurship, Management
-        FinanceAndAccounting,  // Accounting, Investing
-        ITAndSoftware,         // Networking, Security, Cloud
+        Frontend,           // Programming, Web, Mobile
+        Backend,              // Entrepreneurship, Management
+        Testing,// Accounting, Investing
+        UI_UX_Design,         // Networking, Security, Cloud
         OfficeProductivity,    // Microsoft Office, Google Workspace
         PersonalDevelopment,   // Productivity, Leadership, Habits
         Design,                // Graphic, UI/UX, Interior
