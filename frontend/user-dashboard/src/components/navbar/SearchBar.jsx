@@ -1,4 +1,5 @@
 import searchIcon from '../../assets/navbar/heroicons_magnifying-glass-20-solid.png'
+import { Link } from 'react-router-dom'
 const SearchBar = () => {
     return (
         <div className='flex  items-center gap-2 md:gap-6 min-w-0 md:w-full'>
@@ -8,9 +9,9 @@ const SearchBar = () => {
                     <input type='text' name='search' placeholder='Search Courses' className='text-gray-800 outline-none border-none  ' />
                 </form>
             </div>
-            <h2 className='text-gray-800 font-medium hidden lg:block '>
+            <Link to='/courses' className='text-gray-800 font-medium hidden lg:block '>
                 Courses
-            </h2>
+            </Link>
         </div>
     )
 }
