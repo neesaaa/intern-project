@@ -9,14 +9,25 @@ import Signup from "./pages/Signup.jsx";
 import MainLayout from "./MainLayout.jsx";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import CoursesPage from "./pages/CoursesPage.jsx";
+import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 
 const router = createBrowserRouter([
   {
-    element: <MainLayout />, // layout route
+    element: <MainLayout />,
     children: [
       {
-        path: "/", // nested under MainLayout
+        index: true,
         element: <Landing />,
+      },
+      {
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "courses",
+            element: <CoursesPage />,
+          },
+        ],
       },
       {
         path: "/login",

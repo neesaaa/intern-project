@@ -1,0 +1,101 @@
+import Header from "../components/CoursesPage/Header.jsx";
+import FilterSideBar from "../components/CoursesPage/FilterSideBar.jsx";
+import FilterSelection from "../components/CoursesPage/FilterSelection.jsx";
+import CourseCard from "../components/LandingSections/CourseCard.jsx";
+import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
+
+const buildQueryFromFilters = (filters, index = 1) => {
+  const params = new URLSearchParams();
+
+  params.append("IsPagingEnabled", "true");
+  params.append("Skip", String(index));
+  params.append("Take", "9");
+  if (filters.orderby) params.append("OrderBy", filters.orderby);
+  if (filters.orderbyDesc) params.append("OrderByDesc", filters.orderbyDesc);
+
+  if (filters.rating && filters.rating > 0)
+    params.append("MinRating", String(filters.rating));
+
+  if (filters.lectureRange) {
+    params.append("LectureRange", filters.lectureRange);
+  }
+
+  if (Array.isArray(filters.priceRange) && filters.priceRange.length === 2) {
+    params.append("MinPrice", String(filters.priceRange[0]));
+    params.append("MaxPrice", String(filters.priceRange[1]));
+  }
+
+  if (Array.isArray(filters.categories)) {
+    filters.categories.forEach((catId) =>
+      params.append("CategoryIds", String(catId))
+    );
+  }
+
+  return params.toString();
+};
+
+const CoursesPage = () => {
+  const [filters, setFilters] = useState({
+    rating: 0,
+    lectureRange: "all",
+    priceRange: [0, 100],
+    categories: [],
+    orderby: "",
+    orderbyDesc: "",
+  });
+
+  const [expandedSections, setExpandedSections] = useState({
+    rating: true,
+    lectures: true,
+    price: true,
+    category: true,
+  });
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ["courses"],
+    queryFn: async () => {
+      const qs = buildQueryFromFilters(filters);
+      const url = `https://localhost:7031/api/Course/Courses?${qs}`;
+      console.log(url);
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("Network response was not ok");
+      return res.json();
+    },
+    onError: (err) => console.log(err),
+  });
+  useEffect(() => {
+    refetch();
+  }, [filters, refetch]);
+  if (isLoading) return <div>Loading...</div>;
+  console.log(data.items);
+  return (
+    <main className="container mx-auto p-4 flex flex-col gap-6">
+      <Header />
+      <FilterSelection setFilters={setFilters} />
+      <section className="flex gap-6">
+        <FilterSideBar
+          filters={filters}
+          setFilters={setFilters}
+          expandedSections={expandedSections}
+          setExpandedSections={setExpandedSections}
+        />
+        <div className="flex-grow text-black grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  3xl:grid-cols-4 gap-6">
+          {data.items?.map((course, index) => (
+            <CourseCard
+              key={index}
+              Name={course.Name}
+              InstructorName={course.InstructorName}
+              Rate={course.Rate}
+              TotalLectures={course.TotalLectures}
+              TotalHours={course.TotalHours}
+              Cost={course.Cost}
+              ImageUrl={course.ImageUrl}
+            />
+          ))}
+        </div>
+      </section>
+    </main>
+  );
+};
+
+export default CoursesPage;

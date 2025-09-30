@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 
 namespace Service.Specifications
 {
-    public abstract class BaseSpecification<TEntity> : ISpecification<TEntity> where TEntity : BaseEntity
+    public abstract class 
+        BaseSpecification<TEntity> : ISpecification<TEntity> where TEntity : BaseEntity
     {
-     
-        public Expression<Func<TEntity, bool>>? Criteria { get; private set; }
+
+        public List<Expression<Func<TEntity, bool>>> Criteria { get; private set; } = [];
 
         public List<Expression<Func<TEntity, object>>> Includeexpressions { get; } = [];
 
@@ -39,7 +40,7 @@ namespace Service.Specifications
         {
             OrderByDesc = OrderDesc;
         }
-        protected void AddCriteria(Expression<Func<TEntity, bool>> CriteriaExp) => Criteria = CriteriaExp;
+        protected void AddCriteria(Expression<Func<TEntity, bool>> CriteriaExp) => Criteria.Add(CriteriaExp);
         protected void ApplyPaging(int index, int PageSize)
         {
             take = PageSize;

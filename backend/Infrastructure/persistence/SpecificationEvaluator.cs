@@ -28,9 +28,12 @@ namespace persistence
             {
                 query = query.OrderBy(specs.OrderBy);
             }
-            if (specs.Criteria is not null)
+            if (specs.Criteria.Any())
             {
-                query = query.Where(specs.Criteria);
+                foreach (var criteria in specs.Criteria)
+                {
+                    query = query.Where(criteria);
+                }
             }
             if (specs.IsPagingEnabled)
             {
