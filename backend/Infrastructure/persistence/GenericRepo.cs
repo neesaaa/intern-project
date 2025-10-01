@@ -28,6 +28,11 @@ namespace persistence
 
         public async Task<T?> GetByIdAsync(int id) => await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
 
+        public async Task<T?> GetByIdAsync(int id, ISpecification<T> specs)
+        {
+            return await SpecificationEvaluator.CreateQuery(_context.Set<T>().Where(t => t.Id == id), specs).FirstOrDefaultAsync();
+        }
+
         public void Remove(T Entity) =>  _context.Set<T>().Remove(Entity);
 
 

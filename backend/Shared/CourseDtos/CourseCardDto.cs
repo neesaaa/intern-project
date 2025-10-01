@@ -8,6 +8,7 @@ namespace Shared.CourseDtos
 {
     public class CourseCardDto
     {
+        public int Id { get; set; }
         public string Name { get; set; } = default!;
         public string InstructorName { get; set; } = default!;
         public decimal Rate { get; set; }

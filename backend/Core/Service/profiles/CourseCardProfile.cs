@@ -23,6 +23,11 @@ namespace Service.profiles
                 .ForMember(dest => dest.TotlaHours, options => options.MapFrom(src => src.Sections.Sum(x => x.TotalHours)));
 
             CreateMap<Instructor, InstructorCardDto>();
+
+            CreateMap<Instructor, InstructorDto>();
+            CreateMap<CourseSection, CourseSectionDto>();
+            CreateMap<Course, CourseDetailsDto>()
+                 .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.ToString()));
             
         }
     }

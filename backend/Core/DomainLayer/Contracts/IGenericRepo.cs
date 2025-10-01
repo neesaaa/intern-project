@@ -12,6 +12,8 @@ namespace DomainLayer.Contracts
             Task<IEnumerable<T>> GetAllAsync();
             Task<IEnumerable<T>> GetAllAsync(ISpecification<T> specs);
             Task<T?> GetByIdAsync(int id);
+            Task<T?> GetByIdAsync(int id,ISpecification<T> specs);
+
             Task<int> CountAsync(ISpecification<T> specs);
             Task AddAsync(T Entity);
             void Update(T Entity);

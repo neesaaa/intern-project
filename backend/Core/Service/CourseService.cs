@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DomainLayer.Contracts;
+using DomainLayer.Exceptions;
 using DomainLayer.Models;
 using Service.Specifications.CourseSpecifications;
 using Service_Abstraction;
@@ -40,6 +41,19 @@ namespace Service
             return new PaginatedResult<InstructorCardDto>(parameters.Skip, parameters.Take, total, items);
 
 
+
+        }
+
+        public async Task<CourseDetailsDto>? GetCourseById(int id)
+        {
+            var Repo = _unit.GetRepo<Course>();
+            var spec = new CourseDetailsSpecification();
+            var course = await Repo.GetByIdAsync(id, spec);
+
+            if (course == null)
+                throw new NotFoundCourse(id);
+
+            return _mapper.Map<Course, CourseDetailsDto>(course);
 
         }
     }
