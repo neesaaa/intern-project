@@ -94,6 +94,7 @@ const Login = () => {
                   name={"Password"}
                   placeholder={"Enter Password"}
                   labelText={"Password"}
+                  type={"password"}
                   flex1={"w-full"}
                 />
                 {error.Password && (
