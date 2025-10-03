@@ -44,7 +44,7 @@ namespace Service
 
         }
 
-        public async Task<CourseDetailsDto>? GetCourseById(int id)
+        public async Task<CourseDetailsToReturn>? GetCourseById(int id)
         {
             var Repo = _unit.GetRepo<Course>();
             var spec = new CourseDetailsSpecification();
@@ -53,7 +53,21 @@ namespace Service
             if (course == null)
                 throw new NotFoundCourse(id);
 
-            return _mapper.Map<Course, CourseDetailsDto>(course);
+            var topCoursesParams = new CourseSearchParams
+            {
+                Skip = 1,
+                Take = 4,
+                OrderByDesc = "Rate",       // define your "top" criteria
+                IsPagingEnabled=true
+            };
+            var topCoursesPaginated = await GetAllCoursesAsync(topCoursesParams);
+
+
+            return new CourseDetailsToReturn
+            {
+                Course = _mapper.Map<Course, CourseDetailsDto>(course),
+                Top4 = (List<CourseCardDto>)topCoursesPaginated.items
+            };
 
         }
     }

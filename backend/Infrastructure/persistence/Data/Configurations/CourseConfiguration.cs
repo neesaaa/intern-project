@@ -16,7 +16,7 @@
                 base.Configure(builder);
 
                 builder.Property(c => c.Cost)
-                       .HasColumnType("decimal(18,2)");
+                       .HasColumnType("decimal(8,2)");
 
 
 

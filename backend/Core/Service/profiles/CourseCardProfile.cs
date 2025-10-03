@@ -18,17 +18,13 @@ namespace Service.profiles
                 string.IsNullOrEmpty(src.ImageUrl)
                     ? string.Empty
                     : $"https://localhost:7031/{src.ImageUrl}"))
-                .ForMember(dest => dest.InstructorName , options => options.MapFrom(src => src.Instructor.Name))
-                .ForMember(dest => dest.TotalLectures , options => options.MapFrom(src=>src.Sections.Sum(x=>x.LecturesNumber)))
-                .ForMember(dest => dest.TotlaHours, options => options.MapFrom(src => src.Sections.Sum(x => x.TotalHours)));
-
+                .ForMember(dest => dest.InstructorName, options => options.MapFrom(src => src.Instructor.Name))
+                .ForMember(dest => dest.TotalLectures, options => options.MapFrom(src => src.Sections.Sum(x => x.LecturesNumber)));
             CreateMap<Instructor, InstructorCardDto>();
 
             CreateMap<Instructor, InstructorDto>();
             CreateMap<CourseSection, CourseSectionDto>();
-            CreateMap<Course, CourseDetailsDto>()
-                 .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.ToString()));
-            
+            CreateMap<Course, CourseDetailsDto>();            
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DomainLayer.Models;
+using DomainLayer.Models.OrderModule;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -9,16 +10,13 @@ using System.Threading.Tasks;
 
 namespace persistence.Data.Configurations
 {
-    internal class InstructoConfigurations : BaseEntityConfigutaion<Instructor>
+    internal class OrderConfigurations : BaseEntityConfigutaion<Order>
     {
-        public override void Configure(EntityTypeBuilder<Instructor> builder)
+        public override void Configure(EntityTypeBuilder<Order> builder)
         {
-            base.Configure(builder);
+            builder.ToTable("Orders");
+            builder.Property(x => x.SubTotal).HasColumnType("decimal(8,2)");
 
-            builder.Property(c => c.Rate)
-                   .HasColumnType("decimal(8,2)");
-
-        
 
 
         }
