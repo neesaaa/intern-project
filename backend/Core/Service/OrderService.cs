@@ -26,7 +26,7 @@ namespace Service
             var repo = _unit.GetRepo<Course>();
             foreach (var item in basket.Items)
             {
-                var course = await repo.GetByIdAsync(item.CourseId) ?? throw new NotFoundCourse(item.CourseId);
+                var course = await repo.GetByIdAsync(item.Id) ?? throw new NotFoundCourse(item.Id);
                 OrderItem orderItem = CretaeOrderitem(course);
                 OrderItems.Add(orderItem);
             }

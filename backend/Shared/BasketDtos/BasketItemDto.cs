@@ -13,6 +13,7 @@ namespace Shared.BasketDtos
         public string InstructorName { get; set; } = default!;
         [Range(1,double.MaxValue)]
         public decimal Cost { get; set; }
+        public decimal Rate { get; set; }
 
 
     }
