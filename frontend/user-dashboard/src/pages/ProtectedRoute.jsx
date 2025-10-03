@@ -8,14 +8,15 @@ import { useEffect } from "react";
 
 export default function ProtectedRoute() {
   const [isAuthenticated] = useAtom(tokenValidAtom);
-  const [token,setToken]=useAtom(tokenAtom)
-  const [cart,setCart]=useAtom(cartAtom);
+  const [token, setToken] = useAtom(tokenAtom);
+  const [cart, setCart] = useAtom(cartAtom);
   useEffect(() => {
     const loadBasket = async () => {
       if (isAuthenticated && token) {
         try {
           const data = await fetchBasket(token);
-          setCart(data.Items ?? []); 
+          setCart(data.Items ?? []);
+          console.log(cart);
         } catch (err) {
           console.error("Failed to fetch basket:", err);
         }

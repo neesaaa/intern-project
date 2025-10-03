@@ -46,16 +46,17 @@ const CourseDetailPage = () => {
     if (!data) return;
 
     const newItem = {
-      id: data.Course.Id,
-      courseName: data.Course.Name,
-      pictureUrl: data.Course.ImageUrl,
-      totalHours: data.Course.TotalHours,
-      totalLectures: data.Course.Sections.reduce(
+      Id: data.Course.Id,
+      CourseName: data.Course.Name,
+      PictureUrl: data.Course.ImageUrl,
+      TotalHours: data.Course.TotalHours,
+      TotalLectures: data.Course.Sections.reduce(
         (sum, s) => sum + (s.LecturesNumber || 0),
         0
       ),
-      instructorName: data.Course.Instructor.Name,
-      cost: data.Course.Cost,
+      InstructorName: data.Course.Instructor.Name,
+      Cost: data.Course.Cost,
+      Rate: data.Course.Rate,
     };
 
     const updatedCart = [...cart, newItem];
@@ -64,6 +65,8 @@ const CourseDetailPage = () => {
       Id: 12,
       Items: updatedCart,
     };
+    console.log("sending JSON:", JSON.stringify(orderObject));
+
     try {
       const data = await UpdateToBasket(token, orderObject);
       setCart(data.Items);
@@ -71,7 +74,6 @@ const CourseDetailPage = () => {
       toast.error("failed to update basket");
       return;
     }
-
   }
 
   return (
@@ -92,17 +94,17 @@ const CourseDetailPage = () => {
             />
             <div className="flex flex-col gap-2 lg:hidden">
               <button
-                disabled={cart.some(item=>item.Id===data.Course.Id)}
+                disabled={cart.some((item) => item.Id === data.Course.Id)}
                 onClick={HandleAddtoCart}
                 className="font-medium hover:scale-105 hover:bg-gray-700 text-[14px] leading-[160%] cursor-pointer bg-black text-white py-4 px-2 rounded-lg     disabled:bg-gray-400 disabled:text-gray-200 
                   disabled:hover:scale-100 disabled:hover:bg-gray-400 
                   disabled:cursor-not-allowed"
               >
-                  {cart.some(item => item.Id === data.Course.Id)
-                    ? "Already in Cart"
-                    : "Add to Cart"}
+                {cart.some((item) => item.Id === data.Course.Id)
+                  ? "Already in Cart"
+                  : "Add to Cart"}
               </button>
-              <button  className="font-medium hover:scale-105 hover:bg-gray-200 text-[14px] leading-[160%] cursor-pointer bg-white py-4 px-2 rounded-lg border border-border_color">
+              <button className="font-medium hover:scale-105 hover:bg-gray-200 text-[14px] leading-[160%] cursor-pointer bg-white py-4 px-2 rounded-lg border border-border_color">
                 Buy Now
               </button>
             </div>
@@ -118,15 +120,15 @@ const CourseDetailPage = () => {
                 {data.Course.Cost}$
               </h3>
               <button
-                disabled={cart.some(item=>item.Id===data.Course.Id)}
+                disabled={cart.some((item) => item.Id === data.Course.Id)}
                 onClick={HandleAddtoCart}
                 className="font-medium hover:scale-110 hover:bg-gray-700 text-[14px] leading-[160%] cursor-pointer bg-black text-white py-4 px-2 rounded-lg     disabled:bg-gray-400 disabled:text-gray-200 
                 disabled:hover:scale-100 disabled:hover:bg-gray-400 
                 disabled:cursor-not-allowed"
               >
-                    {cart.some(item => item.Id === data.Course.Id)
-                    ? "Already in Cart"
-                    : "Add to Cart"}
+                {cart.some((item) => item.Id === data.Course.Id)
+                  ? "Already in Cart"
+                  : "Add to Cart"}
               </button>
               <button className="font-medium hover:scale-110 hover:bg-gray-200 text-[14px] leading-[160%] cursor-pointer bg-white py-4 px-2 rounded-lg border border-border_color">
                 Buy Now
