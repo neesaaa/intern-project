@@ -11,6 +11,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import CoursesPage from "./pages/CoursesPage.jsx";
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
+import CourseDetailPage from "./pages/CourseDetailPage.jsx";
+import CartPage from "./pages/CartPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,14 @@ const router = createBrowserRouter([
           {
             path: "courses",
             element: <CoursesPage />,
+          },
+          {
+            path: "courses/:courseId",
+            element: <CourseDetailPage />,
+          },
+          {
+            path: "Cart",
+            element: <CartPage />,
           },
         ],
       },

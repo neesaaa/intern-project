@@ -10,19 +10,19 @@ using System.Threading.Tasks;
 
 namespace persistence.Data.Identity
 {
-    public class JWTIdentityDbContext(DbContextOptions<JWTIdentityDbContext> options) :IdentityDbContext<ApplicationUser>(options)
+    public class JWTIdentityDbContext(DbContextOptions<JWTIdentityDbContext> options) :IdentityDbContext<ApplicationUser, IdentityRole<int>, int>(options)
     {
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Ignore<IdentityUserClaim<string>>();
-            builder.Ignore<IdentityUserLogin<string>>();
-            builder.Ignore<IdentityRoleClaim<string>>();
-            builder.Ignore<IdentityUserToken<string>>();
+            builder.Ignore<IdentityUserClaim<int>>();
+            builder.Ignore<IdentityUserLogin<int>>();
+            builder.Ignore<IdentityRoleClaim<int>>();
+            builder.Ignore<IdentityUserToken<int>>();
 
             base.OnModelCreating(builder);
             builder.Entity<ApplicationUser>().ToTable("Users");
-            builder.Entity<IdentityRole>().ToTable("Roles");
-            builder.Entity<IdentityUserRole<string>>().ToTable("UserRoles");
+            builder.Entity<IdentityRole<int>>().ToTable("Roles");
+            builder.Entity<IdentityUserRole<int>>().ToTable("UserRoles");
         }
     }
 }

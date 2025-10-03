@@ -9,13 +9,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using persistence;
 using persistence.Data.Identity;
 using Service;
 using Service.profiles;
 using Service_Abstraction;
 using Shared.CourseDtos;
+using StackExchange.Redis;
 using System.Reflection;
+using System.Text.Json.Serialization;
 using UdemyApp.CustomMidlleWare;
 
 
@@ -32,9 +35,12 @@ namespace UdemyApp
             builder.Services.AddControllers()
                    .AddJsonOptions(options =>
                    {
-                       // Preserve PascalCase in the JSON output
-                       options.JsonSerializerOptions.PropertyNamingPolicy = null;
-                   });
+                   // Preserve PascalCase in the JSON output
+                   options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                   options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                    
+                   }
+            );
             var loggerFactory = LoggerFactory.Create(builder =>
             {
                 builder.AddConsole();
@@ -53,13 +59,23 @@ namespace UdemyApp
             builder.Services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<CourseCardProfile>();
+                cfg.AddProfile<BasketProfile>();
+                cfg.AddProfile<OrderProfile>();
             });
 
             builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
             builder.Services.AddScoped<ICourseService, CourseService>();
             builder.Services.AddScoped<IAuthinticationService, AuthenticationService>();
+            builder.Services.AddScoped<IBasketRepo, BasketRepo>();
+            builder.Services.AddScoped<IBasketService, BasketService>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
+            builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+            {
+                var configuration = builder.Configuration.GetConnectionString("RedisConnection");
+                return ConnectionMultiplexer.Connect(configuration!);
+            });
 
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>(options =>
             {
                 options.User.RequireUniqueEmail = true;
             })
@@ -92,6 +108,17 @@ namespace UdemyApp
 
                 };
             });
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "UdemyApp API",
+                    Version = "v1",
+                    Description = "My API"
+                });
+            });
+            builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
             app.UseMiddleware<CustomException>();
@@ -100,6 +127,11 @@ namespace UdemyApp
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "UdemyApp API v1");
+                });
             }
             
 
@@ -107,6 +139,7 @@ namespace UdemyApp
 
             app.UseCors("Allow All");
 
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseStaticFiles();
 

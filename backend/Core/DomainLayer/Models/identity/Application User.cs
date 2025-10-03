@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Models.identity
 {
-    public class ApplicationUser:IdentityUser
+    public class ApplicationUser:IdentityUser<int>
     {
         public string FirstName { get; set; } = default!;
         public string LastName { get; set; } = default!;

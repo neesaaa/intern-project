@@ -16,7 +16,7 @@ namespace persistence.Data.Configurations
             base.Configure(builder);
 
             builder.Property(c => c.Rate)
-                   .HasColumnType("decimal(18,2)");
+                   .HasColumnType("decimal(8,2)");
 
         
 

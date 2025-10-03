@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { tokenAtom } from "../atoms/authAtom";
 import { useAtom } from "jotai";
+import { cartAtom } from "../atoms/cartAtom";
+import { fetchBasket } from "../Services/BasketService";
 
 const SignupSchema = z
   .object({
@@ -40,6 +42,8 @@ const Signup = () => {
   const [loading, setIsLoading] = useState(false);
   const [error, setError] = useState({});
   const [_, setTokenAtomValue] = useAtom(tokenAtom);
+  const [__,setCart]=useAtom(cartAtom);
+
 
   const navigate = useNavigate();
 
@@ -59,11 +63,16 @@ const Signup = () => {
       console.log("done");
       return res.json();
     },
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       setIsLoading(false);
+
       setTokenAtomValue(data.Token);
       localStorage.setItem("token", data.Token);
-      toast.success(`${data.DisplayName} Created Successfully`);
+
+      const basket = await fetchBasket(data.Token);
+      setCart(basket.Items); 
+      console.log(basket);
+      toast.success(`Welcome back ${data.DisplayName}`);
       navigate("/");
     },
     onError: () => {

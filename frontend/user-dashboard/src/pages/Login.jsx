@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { tokenAtom } from "../atoms/authAtom";
 import { useAtom } from "jotai";
+import { cartAtom } from "../atoms/cartAtom";
+import { fetchBasket } from "../Services/BasketService";
 
 const LoginSchema = z.object({
   Email: z.string().email(),
@@ -25,6 +27,7 @@ const Login = () => {
 
   const navigate = useNavigate();
   const [_, setTokenAtomValue] = useAtom(tokenAtom);
+  const [__,setCart]=useAtom(cartAtom);
 
   const mutation = useMutation({
     mutationFn: async (data) => {
@@ -39,10 +42,15 @@ const Login = () => {
       if (!res.ok) throw new Error("Network response was not ok");
       return res.json();
     },
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       setIsLoading(false);
+
       setTokenAtomValue(data.Token);
       localStorage.setItem("token", data.Token);
+
+      const basket = await fetchBasket(data.Token);
+      setCart(basket.Items); 
+      console.log(basket);
       toast.success(`Welcome back ${data.DisplayName}`);
       navigate("/");
     },
@@ -94,6 +102,7 @@ const Login = () => {
                   name={"Password"}
                   placeholder={"Enter Password"}
                   labelText={"Password"}
+                  type={"password"}
                   flex1={"w-full"}
                 />
                 {error.Password && (

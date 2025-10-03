@@ -26,9 +26,18 @@ namespace persentation.Controllers
         [HttpGet("Instructors")]
         public async Task<IActionResult> GetAllInstructorsAsync([FromQuery] CourseSearchParams queryParams)
         {
-            var PaginatedRes = await _service.GetAllCoursesAsync(queryParams);
-
+            var PaginatedRes = await _service.GetAllInstructorsAsync(queryParams);
             return Ok(PaginatedRes);
         }
+
+        [HttpGet("Course/{id}")]
+        public async Task<IActionResult> GetByIdDetailsPage(int id)
+        {
+            var courseDetails = await _service.GetCourseById(id);
+
+            return Ok(courseDetails);
+        }
+
+
     }
 }

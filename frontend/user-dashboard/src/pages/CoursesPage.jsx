@@ -80,9 +80,10 @@ const CoursesPage = () => {
           setExpandedSections={setExpandedSections}
         />
         <div className="flex-grow text-black grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  3xl:grid-cols-4 gap-6">
-          {data.items?.map((course, index) => (
+          {data.items?.map((course) => (
             <CourseCard
-              key={index}
+              key={course.Id}
+              Id={course.Id}
               Name={course.Name}
               InstructorName={course.InstructorName}
               Rate={course.Rate}

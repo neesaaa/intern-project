@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DomainLayer.Contracts;
+using DomainLayer.Exceptions;
 using DomainLayer.Models;
 using Service.Specifications.CourseSpecifications;
 using Service_Abstraction;
@@ -40,6 +41,33 @@ namespace Service
             return new PaginatedResult<InstructorCardDto>(parameters.Skip, parameters.Take, total, items);
 
 
+
+        }
+
+        public async Task<CourseDetailsToReturn>? GetCourseById(int id)
+        {
+            var Repo = _unit.GetRepo<Course>();
+            var spec = new CourseDetailsSpecification();
+            var course = await Repo.GetByIdAsync(id, spec);
+
+            if (course == null)
+                throw new NotFoundCourse(id);
+
+            var topCoursesParams = new CourseSearchParams
+            {
+                Skip = 1,
+                Take = 4,
+                OrderByDesc = "Rate",       // define your "top" criteria
+                IsPagingEnabled=true
+            };
+            var topCoursesPaginated = await GetAllCoursesAsync(topCoursesParams);
+
+
+            return new CourseDetailsToReturn
+            {
+                Course = _mapper.Map<Course, CourseDetailsDto>(course),
+                Top4 = (List<CourseCardDto>)topCoursesPaginated.items
+            };
 
         }
     }
