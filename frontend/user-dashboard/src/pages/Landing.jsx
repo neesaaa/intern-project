@@ -15,7 +15,7 @@ const Landing = () => {
     const ScrollableInstructor = useRef();
     const ScrollableComments = useRef();
     return (
-            <main className='flex flex-col gap-15'>
+            <main className='flex flex-col gap-15 max-w-screen'>
                 <section>
                     <div className='container mx-auto p-4 flex flex-col lg:flex-row mt-3 md:mt-50 gap-20'>
                         <Herotext allowExpand buttonText={"start you Jounrney"} buttonStyle={'bg-blue-500'} h1={'Unlock Your Potential with Byway'} h2={'Welcome to Byway, \

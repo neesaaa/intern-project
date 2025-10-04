@@ -2,14 +2,16 @@ import CourseHeader from "../components/CourseDetailsPage/CourseHeader";
 import { useAtom, useAtomValue } from "jotai";
 import { cartAtom, cartCountAtom, cartTotalAtom } from "../atoms/cartAtom";
 import CartCard from "../components/CartPage/CartCard";
+import { Link } from "react-router-dom";
+import Invoice from "../components/CartPage/Invoice";
 
 const CartPage = () => {
   const [cart, setCart] = useAtom(cartAtom);
   const cartCount = useAtomValue(cartCountAtom);
   const total = useAtom(cartTotalAtom);
   return (
-    <main className="flex flex-col md:flex-row px-6 lg:px-20 py-9 gap-8 text-black justify-between items-center">
-      <div className="flex flex-col">
+    <main className="flex flex-col md:flex-row px-3 lg:px-20 py-9 gap-8 text-black justify-between items-center flex-1 ">
+      <div className="flex flex-col w-full self-start">
         <div className=" flex gap-3 md:gap-9 items-end">
           <h2 className="font-semibold text-xl lg:text-[32px] leading-[130%] tracking-[0em]">
             Shopping Cart
@@ -33,41 +35,17 @@ const CartPage = () => {
         </div>
       </div>
       <div className="flex flex-col itmes-center gap-4 md:self-start">
-        <div className="flex flex-col gap-4 min-w-80   lg:min-w-100">
+        <div className="flex flex-col gap-4  sm:min-w-100 md:min-w-70  lg:min-w-60 xl:min-w-140">
           <h4 className="font-semibold text-[20px] leading-[1.5] tracking-[0em]">
             Order Details
           </h4>
-          <div className="flex flex-col bg-gray-50 border border-gray-200 p-4 gap-4 rounded-lg h-full">
-            <div className="flex flex-col gap-4 font-normal text-[16px] leading-[1.6] tracking-[0em]">
-              <div className="flex justify-between items-center">
-                <p>Price</p>
-                <h5 className="font-semibold text-[18px] leading-[1.6] tracking-[0em] text-right">
-                  {total}$
-                </h5>
-              </div>
-              <div className="flex justify-between items-center">
-                <p>Discount</p>
-                <h5 className="font-semibold text-[18px] leading-[1.6] tracking-[0em] text-right">
-                  0$
-                </h5>
-              </div>
-              <div className="flex justify-between items-center">
-                <p>Tax</p>
-                <h5 className="font-semibold text-[18px] leading-[1.6] tracking-[0em] text-right">
-                  {0.15 * total}$
-                </h5>
-              </div>
-            </div>
-            <div className="w-full h-0.5 bg-gray-200"></div>
-            <div className="flex justify-between font-sans font-semibold text-[20px] leading-[1.5] tracking-[0em]">
-              <p>Total</p>
-              <p>{1.15 * total}$</p>
-            </div>
-          </div>
+          <Invoice total={total} />
         </div>
-        <button className="text-white w-full bg-black rounded-md py-3 px-2 text-[14px] leading-[1.6] tracking-[0em] cursor-pointer">
-          procced to Checkout
-        </button>
+        <Link to="/Checkout">
+          <button className="text-white w-full bg-black rounded-md py-3 px-2 text-[14px] leading-[1.6] tracking-[0em] cursor-pointer">
+            procced to Checkout
+          </button>
+        </Link>
       </div>
     </main>
   );

@@ -8,7 +8,8 @@ const CourseDescribtion = ({
   sections,
   totalHours,
   instructor,
-  category
+  category,
+  ImageUrl
 }) => {
   const totalLectures = Array.isArray(sections)
     ? sections.reduce((sum, s) => sum + (s.LecturesNumber || 0), 0)
