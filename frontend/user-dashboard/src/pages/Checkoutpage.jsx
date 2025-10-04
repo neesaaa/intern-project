@@ -274,7 +274,8 @@ const Checkoutpage = () => {
         <button
           type="submit"
           form="checkout-form"
-          className="text-white w-full bg-black rounded-md py-3 px-2 text-[14px] leading-[1.6] tracking-[0em] cursor-pointer"
+          disabled={cart.length==0}
+          className="text-white w-full bg-black disabled:bg-gray-400 rounded-md py-3 px-2 text-[14px] leading-[1.6] tracking-[0em] cursor-pointer"
         >
           procced to Checkout
         </button>
