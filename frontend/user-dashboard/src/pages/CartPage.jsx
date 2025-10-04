@@ -4,11 +4,36 @@ import { cartAtom, cartCountAtom, cartTotalAtom } from "../atoms/cartAtom";
 import CartCard from "../components/CartPage/CartCard";
 import { Link } from "react-router-dom";
 import Invoice from "../components/CartPage/Invoice";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import { tokenAtom } from "../atoms/authAtom";
+import { UpdateToBasket } from "../Services/BasketService";
 
 const CartPage = () => {
+  const [token, SetToken] = useAtom(tokenAtom);
   const [cart, setCart] = useAtom(cartAtom);
   const cartCount = useAtomValue(cartCountAtom);
-  const total = useAtom(cartTotalAtom);
+  const total = useAtomValue(cartTotalAtom);
+
+
+  async function HandleDeleteCart(courseId) {
+    const updatedCart = cart.filter((item) => item.Id !== courseId);
+
+    const orderObject = {
+      Id: 12,
+      Items: updatedCart,
+    };
+
+
+    try {
+      const response = await UpdateToBasket(token, orderObject);
+      setCart(response.Items);
+      toast.success("Item removed from basket");
+    } catch {
+      toast.error("Failed to update basket");
+    }
+  }
+
   return (
     <main className="flex flex-col md:flex-row px-3 lg:px-20 py-9 gap-8 text-black justify-between items-center flex-1 ">
       <div className="flex flex-col w-full self-start">
@@ -29,7 +54,7 @@ const CartPage = () => {
           <div className="w-full h-0.5 bg-border_color"></div>
           <div className="flex flex-col gap-4 py-[4.5px]">
             {cart.map((item) => (
-              <CartCard {...item} />
+              <CartCard {...item} key={item.Id} handelDelete={HandleDeleteCart} />
             ))}
           </div>
         </div>
@@ -42,7 +67,7 @@ const CartPage = () => {
           <Invoice total={total} />
         </div>
         <Link to="/Checkout">
-          <button className="text-white w-full bg-black rounded-md py-3 px-2 text-[14px] leading-[1.6] tracking-[0em] cursor-pointer">
+          <button disabled={cart.length==0} className="text-white w-full  bg-black disabled:bg-gray-500  rounded-md py-3 px-2 text-[14px] leading-[1.6] tracking-[0em] cursor-pointer">
             procced to Checkout
           </button>
         </Link>
