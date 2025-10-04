@@ -6,7 +6,7 @@ const CartCard = ({CourseName,InstructorName,TotalLectures,TotalHours,Cost,Rate 
       <div className="flex gap-1 items-center">
         <img src={img} alt="" className="w-48 max-h-28 object-cover rounded-md" />
         <div className="flex flex-col gap-2 ">
-          <h5 className="font-semibold text-[18px] leading-[160%] tracking-normal align-middle">
+          <h5 className="font-semibold text-lg lg:text-[18px] leading-[160%] tracking-normal align-middle">
             {CourseName}
           </h5>
           <p className="text-[14px] leading-[150%] tracking-normal align-middle">
@@ -27,7 +27,7 @@ const CartCard = ({CourseName,InstructorName,TotalLectures,TotalHours,Cost,Rate 
             <button className="text-red-600 font-normal text-[14px] leading-[150%] text-start cursor-pointer  ">Remove</button>
         </div>
       </div>
-      <p className="font-semibold md:text-xl lg:text-[24px] leading-[120%] tracking-normal text-right self-start px-2">
+      <p className="font-semibold md:text-lg lg:text-[24px] leading-[120%] tracking-normal text-right self-start px-2">
         {Cost}$
       </p>
     </div>

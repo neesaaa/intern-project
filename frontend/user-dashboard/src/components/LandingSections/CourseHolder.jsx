@@ -16,7 +16,7 @@ const CourseHolder = () => {
     const courses = data?.items || [];
     return (
         <div className="grid grid-cols-2  md:flex justify-between p-4 gap-4  ">
-            {courses.map((item, i) => <CourseCard {...item} key={i} />)}
+            {courses.map((item, i) => <CourseCard {...item} key={i} style={'h-full'} />)}
         </div>
     )
 }

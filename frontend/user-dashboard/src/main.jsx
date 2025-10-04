@@ -13,42 +13,27 @@ import CoursesPage from "./pages/CoursesPage.jsx";
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 import CourseDetailPage from "./pages/CourseDetailPage.jsx";
 import CartPage from "./pages/CartPage.jsx";
-
+import Checkoutpage from "./pages/Checkoutpage.jsx";
+import DonePage from "./pages/DonePage.jsx";
 const router = createBrowserRouter([
   {
     element: <MainLayout />,
     children: [
-      {
-        index: true,
-        element: <Landing />,
-      },
+      { index: true, element: <Landing /> },
       {
         element: <ProtectedRoute />,
         children: [
-          {
-            path: "courses",
-            element: <CoursesPage />,
-          },
-          {
-            path: "courses/:courseId",
-            element: <CourseDetailPage />,
-          },
-          {
-            path: "Cart",
-            element: <CartPage />,
-          },
+          { path: "courses", element: <CoursesPage /> },
+          { path: "courses/:courseId", element: <CourseDetailPage /> },
+          { path: "cart", element: <CartPage /> },
+          { path: "checkout", element: <Checkoutpage /> },
+          { path: "done", element: <DonePage /> },
         ],
-      },
-      {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/signup",
-        element: <Signup />,
       },
     ],
   },
+  { path: "login", element: <Login /> },
+  { path: "signup", element: <Signup /> },
 ]);
 
 const queryClient = new QueryClient();

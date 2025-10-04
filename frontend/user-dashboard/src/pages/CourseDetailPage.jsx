@@ -91,6 +91,7 @@ const CourseDetailPage = () => {
               totalHours={data.Course.TotalHours}
               instructor={data.Course.Instructor}
               category={data.Course.Category}
+              ImageUrl={data.Course.Instructor.ImageUrl}
             />
             <div className="flex flex-col gap-2 lg:hidden">
               <button
@@ -143,23 +144,23 @@ const CourseDetailPage = () => {
         </div>
         {/*buttons*/}
         <div className="flex  items-center gap-2 md:gap-6 text-black text-[14px] leading-[150%] px-3 md:px-20  ">
-          <button className="py-4 px-2 md:px-6 bg-blue-50 border border-gray-300 rounded-lg cursor-pointer">
+          <button onClick={()=> document.getElementById('description').scrollIntoView({behavior:'smooth'})} className="py-4 px-2 md:px-6 bg-blue-50 border border-gray-300 rounded-lg cursor-pointer">
             Description
           </button>
-          <button className="py-4 px-2 md:px-6 bg-primary-50 border border-gray-300 rounded-lg cursor-pointer ">
+          <button onClick={()=> document.getElementById('instructor').scrollIntoView({behavior:'smooth'})} className="py-4 px-2 md:px-6 bg-primary-50 border border-gray-300 rounded-lg cursor-pointer ">
             Instructor
           </button>
-          <button className="py-4 px-2 md:px-6 bg-primary-50 border border-gray-300 rounded-lg cursor-pointer">
+          <button onClick={()=> document.getElementById('content').scrollIntoView({behavior:'smooth'})}  className="py-4 px-2 md:px-6 bg-primary-50 border border-gray-300 rounded-lg cursor-pointer">
             Content
           </button>
-          <button className="py-4 px-2 md:px-6 bg-primary-50 border border-gray-300 rounded-lg cursor-pointer">
+          <button onClick={()=> document.getElementById('reviews').scrollIntoView({behavior:'smooth'})} className="py-4 px-2 md:px-6 bg-primary-50 border border-gray-300 rounded-lg cursor-pointer">
             Reviews
           </button>
         </div>
         {/*line*/}
         <div className="bg-gray-300 h-0.5 mx-3 md:mx-20"></div>
         {/*Course Describtion & Certification*/}
-        <div className="flex flex-col px-3 md:px-20 gap-1 text-black">
+        <div id="description" className="flex flex-col px-3 md:px-20 gap-1 text-black">
           <div>
             <h4 className="font-semibold text-[20px] leading-[150%]">
               Course Describtion
@@ -169,7 +170,7 @@ const CourseDetailPage = () => {
             </p>
           </div>
         </div>
-        <div className="flex flex-col px-3 md:px-20 gap-1 text-black">
+        <div id="certification"  className="flex flex-col px-3 md:px-20 gap-1 text-black">
           <div>
             <h4 className="font-semibold text-[20px] leading-[150%]">
               Certification
@@ -182,7 +183,7 @@ const CourseDetailPage = () => {
         {/*line*/}
         <div className="bg-gray-300 h-0.5 mx-3 md:mx-20"></div>
         {/* Instructor */}
-        <div className="flex flex-col gap-4 px-3 md:px-20 ">
+        <div id="instructor"  className="flex flex-col gap-4 px-3 md:px-20 ">
           <h4 className="font-semibold text-[20px] leading-[150%]">
             Instructor
           </h4>
@@ -215,7 +216,7 @@ const CourseDetailPage = () => {
         {/*line*/}
         <div className="bg-gray-300 h-0.5 mx-3 md:mx-20"></div>
         {/* Content*/}
-        <div className="flex flex-col px-3 md:px-20 gap-4">
+        <div id="content" className="flex flex-col px-3 md:px-20 gap-4">
           <h4 className="font-semibold text-xl leading-[150%]">Content</h4>
           <div className="flex flex-col">
             {data.Course.Sections.map((s, idx) => (
@@ -231,7 +232,7 @@ const CourseDetailPage = () => {
         {/*line*/}
         <div className="bg-gray-300 h-0.5 mx-3 md:mx-20"></div>
         {/* Reviews*/}
-        <div className="flex flex-col  px-3 md:px-20 gap-4">
+        <div id="reviews" className="flex flex-col  px-3 md:px-20 gap-4">
           <h4 className="font-semibold text-xl leading-[150%]">
             Learner Reviews
           </h4>
@@ -243,9 +244,9 @@ const CourseDetailPage = () => {
         {/* Courses */}
         <div className="flex py-29 px-3 md:px-20 flex-col gap-6">
           <h2 className="font-semibold text-xl leading-[1.4]">
-            More Courses Like This
+            More Courses Like This:
           </h2>
-          <div className="flex flex-col self-start lg:self-center lg:flex-row items-center gap-4 ">
+          <div className="flex flex-col self-start  lg:flex-row items-center w-full  justify-around lg:self-center lg:justify-around">
             {data.Top4.map((course, idx) => (
               <CourseCard key={idx} {...course} />
             ))}

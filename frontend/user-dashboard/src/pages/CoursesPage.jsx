@@ -3,7 +3,7 @@ import FilterSideBar from "../components/CoursesPage/FilterSideBar.jsx";
 import FilterSelection from "../components/CoursesPage/FilterSelection.jsx";
 import CourseCard from "../components/LandingSections/CourseCard.jsx";
 import { useQuery } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const buildQueryFromFilters = (filters, index = 1) => {
   const params = new URLSearchParams();
@@ -36,6 +36,7 @@ const buildQueryFromFilters = (filters, index = 1) => {
 };
 
 const CoursesPage = () => {
+  const [SortBy,setsortby]=useState('Latest');
   const [filters, setFilters] = useState({
     rating: 0,
     lectureRange: "all",
@@ -51,8 +52,8 @@ const CoursesPage = () => {
     price: true,
     category: true,
   });
-  const { data, isLoading, refetch } = useQuery({
-    queryKey: ["courses"],
+  const { data, isLoading } = useQuery({
+    queryKey: ["courses", filters],
     queryFn: async () => {
       const qs = buildQueryFromFilters(filters);
       const url = `https://localhost:7031/api/Course/Courses?${qs}`;
@@ -63,15 +64,12 @@ const CoursesPage = () => {
     },
     onError: (err) => console.log(err),
   });
-  useEffect(() => {
-    refetch();
-  }, [filters, refetch]);
   if (isLoading) return <div>Loading...</div>;
   console.log(data.items);
   return (
     <main className="container mx-auto p-4 flex flex-col gap-6">
       <Header />
-      <FilterSelection setFilters={setFilters} />
+      <FilterSelection setFilters={setFilters} sort={SortBy} setter={setsortby}/>
       <section className="flex gap-6">
         <FilterSideBar
           filters={filters}

@@ -13,7 +13,7 @@ namespace Service.Specifications
         BaseSpecification<TEntity> : ISpecification<TEntity> where TEntity : BaseEntity
     {
 
-        public List<Expression<Func<TEntity, bool>>> Criteria { get; private set; } = [];
+        public List<Expression<Func<TEntity, bool>>>? CriteriaList { get; private set; } = [];
 
         public List<Expression<Func<TEntity, object>>> Includeexpressions { get; } = [];
 
@@ -40,7 +40,7 @@ namespace Service.Specifications
         {
             OrderByDesc = OrderDesc;
         }
-        protected void AddCriteria(Expression<Func<TEntity, bool>> CriteriaExp) => Criteria.Add(CriteriaExp);
+        protected void AddCriteria(Expression<Func<TEntity, bool>> CriteriaExp) => CriteriaList.Add(CriteriaExp);
         protected void ApplyPaging(int index, int PageSize)
         {
             take = PageSize;

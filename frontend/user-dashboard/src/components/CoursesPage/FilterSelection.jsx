@@ -1,9 +1,8 @@
 import icon from "../../assets/CoursesPage/Icon.png";
 import arrowDown from "../../assets/CoursesPage/arrowdown.png";
 import { useState } from "react";
-const FilterSelection = ({ setFilters }) => {
+const FilterSelection = ({ setFilters, sort, setter }) => {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState("Latest");
 
   return (
     <div className="flex justify-between item-center w-full">
@@ -32,7 +31,7 @@ const FilterSelection = ({ setFilters }) => {
               alt="Arrow Down"
               className="w-3  object-contain"
             />
-            {selected}
+            {sort}
           </button>
           {open && (
             <div className="absolute bg-white border border-border_color p-2 rounded-lg shadow-lg text-black ">
@@ -40,7 +39,7 @@ const FilterSelection = ({ setFilters }) => {
                 <li
                   className="px-4 py-2 hover:bg-blue-50 cursor-pointer rounded-md"
                   onClick={() => {
-                    setSelected("Highest Price");
+                    setter("Highest Price");
                     setFilters((prev) => ({
                       ...prev,
                       orderbyDesc: "Price",
@@ -53,7 +52,7 @@ const FilterSelection = ({ setFilters }) => {
                 <li
                   className="px-4 py-2 hover:bg-blue-50 cursor-pointer rounded-md"
                   onClick={() => {
-                    setSelected("Lowest Price");
+                    setter("Lowest Price");
                     setFilters((prev) => ({
                       ...prev,
                       orderby: "Price",
@@ -66,7 +65,7 @@ const FilterSelection = ({ setFilters }) => {
                 <li
                   className="px-4 py-2 hover:bg-blue-50 cursor-pointer rounded-md"
                   onClick={() => {
-                    setSelected("Latest");
+                    setter("Latest");
                     setFilters((prev) => ({
                       ...prev,
                       orderbyDesc: "CreatedAt",
@@ -79,7 +78,7 @@ const FilterSelection = ({ setFilters }) => {
                 <li
                   className="px-4 py-2 hover:bg-blue-50 cursor-pointer rounded-md"
                   onClick={() => {
-                    setSelected("Oldest");
+                    setter("Oldest");
                     setFilters((prev) => ({
                       ...prev,
                       orderby: "CreatedAt",

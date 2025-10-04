@@ -12,7 +12,7 @@ namespace Service.profiles
     public class OrderProfile:Profile
     {
         public OrderProfile() {
-            CreateMap<OrderAddress, OrderAdressDto>();
+            CreateMap<OrderAdressDto, OrderAddress>().ReverseMap();
             CreateMap<Order,OrderToReturnDto>();
             CreateMap<OrderItem,OrderItemDto>();
         }

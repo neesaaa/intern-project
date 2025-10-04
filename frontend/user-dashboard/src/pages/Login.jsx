@@ -80,7 +80,7 @@ const Login = () => {
   return (
     <main className="flex-1 ">
       <section className="flex items-center justify-center h-full ">
-        <div className="flex flex-col items-center  gap-6 text-center text-black w-full px-5 md:px-20">
+        <div className="flex flex-col items-center  gap-6 text-center pt-40 lg:pt-0 text-black w-full px-5 md:px-20">
           <h2 className="leading-1.3 font-semibold text-3xl">
             Signin your Account
           </h2>

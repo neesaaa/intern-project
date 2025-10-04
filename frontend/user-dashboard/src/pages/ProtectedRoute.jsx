@@ -16,7 +16,6 @@ export default function ProtectedRoute() {
         try {
           const data = await fetchBasket(token);
           setCart(data.Items ?? []);
-          console.log(cart);
         } catch (err) {
           console.error("Failed to fetch basket:", err);
         }

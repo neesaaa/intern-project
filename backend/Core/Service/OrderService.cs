@@ -36,6 +36,7 @@ namespace Service
             var OrderRepo=_unit.GetRepo<Order>();
             await OrderRepo.AddAsync(Order);
             await _unit.SaveChnagesAsync();
+            await _basket.DeleteBasketAsync(order.BasketId);
 
             return _mapper.Map<Order, OrderToReturnDto>(Order);
 

@@ -10,7 +10,7 @@ namespace DomainLayer.Contracts
 {
     public interface ISpecification <Entity> where Entity:BaseEntity
     {
-        List<Expression<Func<Entity, bool>>> Criteria { get; }
+        List<Expression<Func<Entity,bool>>>? CriteriaList { get; } 
         List<Expression<Func<Entity, object>>> Includeexpressions { get; }
         public Expression<Func<Entity, object>>? OrderBy { get; }
         public Expression<Func<Entity, object>>? OrderByDesc { get; }
