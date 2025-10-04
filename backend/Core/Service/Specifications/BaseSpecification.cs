@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace Service.Specifications
 {
-    public abstract class BaseSpecification<TEntity> : ISpecification<TEntity> where TEntity : BaseEntity
+    public abstract class 
+        BaseSpecification<TEntity> : ISpecification<TEntity> where TEntity : BaseEntity
     {
 
         public List<Expression<Func<TEntity, bool>>>? CriteriaList { get; private set; } = [];

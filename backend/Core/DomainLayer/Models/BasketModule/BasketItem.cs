@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Models.BasketModule
 {
-    public class BasketItem:BaseEntity
+    public class BasketItem
     {
-        public int CourseId { get; set; }
+        public int Id { get; set; }
         public string CourseName { get; set; } = default!;
 
         public string PictureUrl { get; set; } = default!;

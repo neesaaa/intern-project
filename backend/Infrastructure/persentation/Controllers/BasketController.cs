@@ -34,16 +34,13 @@ using System.Threading.Tasks;
             [HttpPost]
             public async Task<ActionResult<BasketDto>> CreateOrUpdateAsync(BasketDto basket)
             {
-                if (!TryGetUserId(out var userId))
-                    return Unauthorized();
-                basket.Items = basket.Items
-                        .GroupBy(i => i.Id)                
-                        .Select(g => g.First())            
-                        .ToList();
-                basket.Id = userId;
-                var basketUpdatedorCreated = await _basketService.CreateOrUpdateBasketAsync(basket);
-                return Ok(basketUpdatedorCreated);
-            }
+
+                    if (!TryGetUserId(out var userId))
+                        return Unauthorized();
+                    basket.Id = userId;
+                    var basketUpdatedorCreated = await _basketService.CreateOrUpdateBasketAsync(basket);
+                    return Ok(basketUpdatedorCreated);
+             }
 
             [HttpDelete]
             public async Task<ActionResult<BasketDto>> DeleteAsync()
