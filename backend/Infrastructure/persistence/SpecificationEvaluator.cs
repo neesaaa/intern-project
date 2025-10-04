@@ -20,17 +20,21 @@ namespace persistence
                 query = specs.Includeexpressions.Aggregate(query, (current, include) => current.Include(include));
             
             }
-            if (specs.OrderByDesc is not null)
-            {
-                query = query.OrderByDescending(specs.OrderByDesc);
-            }
-            else if (specs.OrderBy is not null)
+            if (specs.OrderBy is not null)
             {
                 query = query.OrderBy(specs.OrderBy);
             }
-            if (specs.Criteria is not null)
+            else if (specs.OrderByDesc is not null)
             {
-                query = query.Where(specs.Criteria);
+                query = query.OrderByDescending(specs.OrderByDesc);
+            }
+
+            if (specs.CriteriaList != null && specs.CriteriaList.Any())
+            {
+                foreach (var criterion in specs.CriteriaList)
+                {
+                    query = query.Where(criterion);
+                }
             }
             if (specs.IsPagingEnabled)
             {

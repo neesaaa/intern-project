@@ -20,9 +20,17 @@ namespace Service.profiles
                     : $"https://localhost:7031/{src.ImageUrl}"))
                 .ForMember(dest => dest.InstructorName, options => options.MapFrom(src => src.Instructor.Name))
                 .ForMember(dest => dest.TotalLectures, options => options.MapFrom(src => src.Sections.Sum(x => x.LecturesNumber)));
-            CreateMap<Instructor, InstructorCardDto>();
+            CreateMap<Instructor, InstructorCardDto>()
+                                .ForMember(dto => dto.ImageUrl, opt => opt.MapFrom(src =>
+                string.IsNullOrEmpty(src.ImageUrl)
+                    ? string.Empty
+                    : $"https://localhost:7031/{src.ImageUrl}"));
 
-            CreateMap<Instructor, InstructorDto>();
+            CreateMap<Instructor, InstructorDto>()
+                                .ForMember(dto => dto.ImageUrl, opt => opt.MapFrom(src =>
+                string.IsNullOrEmpty(src.ImageUrl)
+                    ? string.Empty
+                    : $"https://localhost:7031/{src.ImageUrl}"));
             CreateMap<CourseSection, CourseSectionDto>();
             CreateMap<Course, CourseDetailsDto>();            
         }

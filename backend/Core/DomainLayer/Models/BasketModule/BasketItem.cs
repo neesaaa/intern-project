@@ -15,5 +15,8 @@ namespace DomainLayer.Models.BasketModule
         public int TotalHours { get; set; }
         public int TotalLectures { get; set; }
         public string InstructorName { get; set; } = default!;
+        public decimal Cost { get; set; }
+        public decimal Rate { get; set; }
+
     }
 }

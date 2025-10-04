@@ -26,7 +26,7 @@ namespace Service
             var repo = _unit.GetRepo<Course>();
             foreach (var item in basket.Items)
             {
-                var course = await repo.GetByIdAsync(item.CourseId) ?? throw new NotFoundCourse(item.CourseId);
+                var course = await repo.GetByIdAsync(item.Id) ?? throw new NotFoundCourse(item.Id);
                 OrderItem orderItem = CretaeOrderitem(course);
                 OrderItems.Add(orderItem);
             }
@@ -36,6 +36,7 @@ namespace Service
             var OrderRepo=_unit.GetRepo<Order>();
             await OrderRepo.AddAsync(Order);
             await _unit.SaveChnagesAsync();
+            await _basket.DeleteBasketAsync(order.BasketId);
 
             return _mapper.Map<Order, OrderToReturnDto>(Order);
 

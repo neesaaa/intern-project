@@ -26,8 +26,14 @@ namespace Shared.CourseDtos
 
     
         public bool IsPagingEnabled { get; set; } = false;
+        public int? MinRating { get; set; }     
+        public string? LectureRange { get; set; } 
+        public decimal? MinPrice { get; set; }    
+        public decimal? MaxPrice { get; set; }    
 
-        
-       
+        public List<int>? CategoryIds { get; set; } 
+
+
+
     }
 }

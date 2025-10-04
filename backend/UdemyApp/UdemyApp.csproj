@@ -17,8 +17,6 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="wwwroot\images\Courses\" />
-    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
   <ItemGroup>
