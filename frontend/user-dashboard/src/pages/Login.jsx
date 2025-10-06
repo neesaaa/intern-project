@@ -46,7 +46,7 @@ const Login = () => {
       setIsLoading(false);
 
       setTokenAtomValue(data.Token);
-      localStorage.setItem("token", data.Token);
+      localStorage.setItem("Admintoken", data.Token);
 
       const basket = await fetchBasket(data.Token);
       setCart(basket.Items); 
