@@ -69,6 +69,7 @@ namespace UdemyApp
             builder.Services.AddScoped<IBasketRepo, BasketRepo>();
             builder.Services.AddScoped<IBasketService, BasketService>();
             builder.Services.AddScoped<IOrderService, OrderService>();
+            builder.Services.AddScoped<DataSeed>();
             builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
             {
                 var configuration = builder.Configuration.GetConnectionString("RedisConnection");
@@ -108,6 +109,7 @@ namespace UdemyApp
 
                 };
             });
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {
@@ -133,7 +135,14 @@ namespace UdemyApp
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "UdemyApp API v1");
                 });
             }
-            
+            using var scope = app.Services.CreateScope();
+            var services = scope.ServiceProvider;
+
+            var seedObj = services.GetRequiredService<DataSeed>();
+            seedObj.SeedAdminAsync();
+           
+
+
 
             app.UseHttpsRedirection();
 

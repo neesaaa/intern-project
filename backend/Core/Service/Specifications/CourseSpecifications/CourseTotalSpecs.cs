@@ -12,7 +12,7 @@ namespace Service.Specifications.CourseSpecifications
     {
         public CourseTotalSpecs(CourseSearchParams parameters) {
 
-            if (parameters.Filter is not null)
+            if (parameters is not null && parameters.Filter is not null)
             {
                 AddCriteria(c=>c.Name.Contains(parameters.Filter));
 

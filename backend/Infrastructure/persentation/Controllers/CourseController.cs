@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Service_Abstraction;
 using Shared;
 using Shared.CourseDtos;
@@ -8,7 +9,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-
+    
 namespace persentation.Controllers
 {
     [ApiController]
@@ -38,6 +39,14 @@ namespace persentation.Controllers
             return Ok(courseDetails);
         }
 
+        [HttpGet("Stats")]
+        [Authorize(Roles="Admin")]
+        public async Task<IActionResult> GetStats()
+        {
+            var stats= await _service.GetStats();
+            return Ok(stats);
+
+        }
 
     }
 }

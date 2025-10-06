@@ -13,5 +13,6 @@ namespace Service_Abstraction
         Task<PaginatedResult<CourseCardDto>> GetAllCoursesAsync(CourseSearchParams parameters);
         Task<PaginatedResult<InstructorCardDto>> GetAllInstructorsAsync(CourseSearchParams parameters);
         Task<CourseDetailsToReturn>? GetCourseById(int id);
+        Task<StatsDto> GetStats();
     }
 }

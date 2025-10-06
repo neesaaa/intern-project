@@ -7,6 +7,7 @@ using Service_Abstraction;
 using Shared.AuthDtos;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -25,11 +26,15 @@ namespace Service
             var passwordokay = await _userManager.CheckPasswordAsync(user, loginDto.Password);
             if(!passwordokay)
                 throw new UnauthorizedException("Invalid password");
+            var roles = await _userManager.GetRolesAsync(user);
+            var role = roles.FirstOrDefault();
+
             return new UserDto
             {
                 Email = loginDto.Email,
                 DisplayName = user.DisplayName,
-                Token = await CreateTokenAsync(user)
+                Token = await CreateTokenAsync(user),
+                Role= role!
             };
         }
 

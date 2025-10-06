@@ -70,5 +70,24 @@ namespace Service
             };
 
         }
+
+        public async Task<StatsDto> GetStats()
+        {
+            var CourseRepo= _unit.GetRepo<Course>();
+            var InstructorRepo= _unit.GetRepo<Instructor>();
+            var Insspecs = new InstructorTotalSpecs(null);
+            int totalInstructor = await InstructorRepo.CountAsync(Insspecs);
+            var coursesSpec = new CourseTotalSpecs(null);
+            int CoursesCount = await CourseRepo.CountAsync(coursesSpec);
+            int Categories= Enum.GetValues(typeof(DomainLayer.Models.Category)).Length;
+            return new StatsDto
+            {
+                Instructors = totalInstructor,
+                Courses = CoursesCount,
+                Categories = Categories
+            };
+
+
+        }
     }
 }
