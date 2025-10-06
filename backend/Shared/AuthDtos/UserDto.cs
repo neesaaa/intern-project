@@ -13,5 +13,7 @@ namespace Shared.AuthDtos
         public string Token { get; set; } = default!;
         [EmailAddress]
         public string Email { get; set; } = default!;
+        public string Role { get; set; } = default!;
+
     }
 }
