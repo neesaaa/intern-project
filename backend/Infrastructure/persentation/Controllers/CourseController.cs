@@ -48,5 +48,27 @@ namespace persentation.Controllers
 
         }
 
+        [HttpDelete("Instructor/{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteInst(int id)
+        {
+            await _service.DeleteInstructor(id);
+            return NoContent();
+
+        }
+        [HttpPost("Instructor/AddOrUpdate")]
+        public async Task<IActionResult> InstructorsAddOrUpdate([FromBody]AddOrUpdateInstructor dto)
+        {
+
+            var result = await _service.UpdateOrAddAsync(dto);
+
+            if (dto.Id.HasValue)
+                return Ok(new { message = "Instructor updated successfully", data = result });
+
+            return Ok(new { message = "Instructor Created successfully", data = result });
+
+        }
+
+
     }
 }

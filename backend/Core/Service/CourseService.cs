@@ -16,6 +16,20 @@ namespace Service
 {
     public class CourseService(IUnitOfWork _unit,IMapper _mapper) : ICourseService
     {
+        public async Task DeleteInstructor(int id)
+        {
+            var repo = _unit.GetRepo<Instructor>();
+            var instructor = await repo.GetByIdAsync(id);
+            if (instructor == null)
+                throw new NotFoundInstructor(id); 
+
+            repo.Remove(instructor);
+
+            var result = await _unit.SaveChnagesAsync();
+            if (result < 1)
+                throw new Exception("error saving changes");
+        }
+
         public async Task<PaginatedResult<CourseCardDto>> GetAllCoursesAsync(CourseSearchParams parameters)
         {
             var Repo = _unit.GetRepo<Course>();
@@ -57,7 +71,7 @@ namespace Service
             {
                 Skip = 1,
                 Take = 4,
-                OrderByDesc = "Rate",       // define your "top" criteria
+                OrderByDesc = "Rate",       
                 IsPagingEnabled=true
             };
             var topCoursesPaginated = await GetAllCoursesAsync(topCoursesParams);
@@ -68,6 +82,18 @@ namespace Service
                 Course = _mapper.Map<Course, CourseDetailsDto>(course),
                 Top4 = (List<CourseCardDto>)topCoursesPaginated.items
             };
+
+        }
+
+        public async Task<InstructorCardDto>? GetInstructorById(int id)
+        {
+            var Repo = _unit.GetRepo<Instructor>();
+            var instructor = await Repo.GetByIdAsync(id);
+
+            if (instructor == null)
+                return null;
+            return _mapper.Map<Instructor, InstructorCardDto>(instructor); 
+
 
         }
 
@@ -89,5 +115,31 @@ namespace Service
 
 
         }
+
+        public async Task<InstructorCardDto> UpdateOrAddAsync(AddOrUpdateInstructor dto)
+        {
+            var repo = _unit.GetRepo<Instructor>();
+
+            if (dto.Id.HasValue)
+            {
+                var existing = await repo.GetByIdAsync(dto.Id.Value);
+                if (existing == null)
+                    throw new NotFoundInstructor(dto.Id.Value);
+
+                _mapper.Map(dto, existing);
+
+                repo.Update(existing);
+                await _unit.SaveChnagesAsync();
+
+                return _mapper.Map<Instructor, InstructorCardDto>(existing);
+            }
+
+            var newInstructor = _mapper.Map<AddOrUpdateInstructor, Instructor>(dto);
+            await repo.AddAsync(newInstructor);
+            await _unit.SaveChnagesAsync();
+
+            return _mapper.Map<Instructor, InstructorCardDto>(newInstructor);
+        }
+
     }
 }

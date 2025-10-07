@@ -38,7 +38,8 @@ namespace UdemyApp
                    // Preserve PascalCase in the JSON output
                    options.JsonSerializerOptions.PropertyNamingPolicy = null;
                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                    
+                       options.JsonSerializerOptions.ReferenceHandler =ReferenceHandler.IgnoreCycles;
+
                    }
             );
             var loggerFactory = LoggerFactory.Create(builder =>
@@ -128,6 +129,7 @@ namespace UdemyApp
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
+                app.UseDeveloperExceptionPage();
                 app.MapOpenApi();
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>

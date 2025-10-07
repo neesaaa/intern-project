@@ -5,8 +5,10 @@ import Login from "./pages/Login";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Dash from './pages/Dash'
+import Instructorspage from "./pages/Instructorspage";
 
 const queryClient = new QueryClient();
+
 
 
 function App() {
@@ -21,7 +23,7 @@ function App() {
         },
         {
           path:'/instructors',
-          element: <h1>instructors</h1>
+          element: <Instructorspage />
         },
         {
           path:'/courses',
