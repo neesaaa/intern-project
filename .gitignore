@@ -1,10 +1,10 @@
 # frontend
 frontend/user-dashboard/node_modules/
 frontend/user-dashboard/dist/
-frontend/user-dashboard/.next/
+frontend/user-dashboard/.vite/
 frontend/admin-dashboard/node_modules/
 frontend/admin-dashboard/dist/
-frontend/admin-dashboard/.next/
+frontend/admin-dashboard/.vite/
 
 # backend (ASP.NET Core)
 backend/UdemyApp/.vs/
