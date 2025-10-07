@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Shared.CourseDtos
 {
-    public class InstructorCardDto
+    public class AddOrUpdateInstructor
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public decimal Rate { get; set; }
         public string ImageUrl { get; set; } = default!;
         public string Name { get; set; } = default!;
-        public Title Title { get; set; }=default!;
+        public Title Title { get; set; } = default!;
         public string Description { get; set; } = default!;
     }
 }

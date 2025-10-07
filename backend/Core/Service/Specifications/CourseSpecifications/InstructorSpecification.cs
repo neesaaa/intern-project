@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,12 +12,18 @@ namespace Service.Specifications.CourseSpecifications
 {
     public class InstructorSpecification:BaseSpecification<Instructor>
     {
-        public InstructorSpecification(CourseSearchParams paramters) {
+        public InstructorSpecification(CourseSearchParams parameters) {
             AddOrderByDesc(c => c.Rate);
-            if (paramters.IsPagingEnabled)
+            if (parameters.IsPagingEnabled)
             {
-                ApplyPaging(paramters.Skip, paramters.Take);
+                ApplyPaging(parameters.Skip, parameters.Take);
             }
+            
+            if (!string.IsNullOrEmpty(parameters.Filter))
+            {
+                    AddCriteria(c => c.Name.ToLower().Contains(parameters.Filter.ToLower()));
+            }
+
         }
 
     }

@@ -32,7 +32,13 @@ namespace Service.profiles
                     ? string.Empty
                     : $"https://localhost:7031/{src.ImageUrl}"));
             CreateMap<CourseSection, CourseSectionDto>();
-            CreateMap<Course, CourseDetailsDto>();            
+            CreateMap<Course, CourseDetailsDto>();
+
+            CreateMap<AddOrUpdateInstructor, Instructor>()
+                .ForMember(dest => dest.Id, opt => opt.Condition(src => src.Id.HasValue)) 
+                .ForAllMembers(opt => opt.Condition((src, dest, val) => val != null)); 
+
+            CreateMap<Instructor, AddOrUpdateInstructor>();
         }
     }
 }
