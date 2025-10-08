@@ -16,6 +16,8 @@ namespace Shared.CourseDtos
         public decimal TotalHours { get; set; }
         public decimal Cost { get; set; }
         public string? ImageUrl { get; set; }
+        public Category Category { get; set; }
+
 
     }
 }
