@@ -72,7 +72,7 @@ const Checkoutpage = () => {
   const mutation = useMutation({
     mutationFn: async (data) => {
       const res = await fetch(
-        "http://nassar1-001-site1.rtempurl.com/api/Order",
+        "https://nassar1-001-site1.rtempurl.com/api/Order",
         {
           method: "POST",
           headers: {

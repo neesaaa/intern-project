@@ -18,7 +18,7 @@ const Instructorspage = () => {
     queryKey: ["instructors", currentPage, search],
     queryFn: async () => {
       const res = await fetch(
-        `http://nassar1-001-site1.rtempurl.com/api/Course/Instructors?IsPagingEnabled=true&Skip=${currentPage}&Take=7&Filter=${search}`
+        `https://nassar1-001-site1.rtempurl.com/api/Course/Instructors?IsPagingEnabled=true&Skip=${currentPage}&Take=7&Filter=${search}`
       );
       if (!res.ok) throw new Error("Failed to fetch instructors");
       return res.json();
@@ -30,7 +30,7 @@ const Instructorspage = () => {
     mutationKey: ["instructors"],
     mutationFn: async (instructor) => {
       const res = await fetch(
-        `http://nassar1-001-site1.rtempurl.com/api/Course/Instructor/AddOrUpdate`,
+        `https://nassar1-001-site1.rtempurl.com/api/Course/Instructor/AddOrUpdate`,
         {
           method: "post",
           headers: {

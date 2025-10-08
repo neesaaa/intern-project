@@ -20,7 +20,7 @@ export default function InstructorsTable({
     mutationFn: async (id) => {
       mutationKey: ["instructors", id];
       const res = await fetch(
-        `http://nassar1-001-site1.rtempurl.com/api/Course/Instructor/${id}`,
+        `https://nassar1-001-site1.rtempurl.com/api/Course/Instructor/${id}`,
         {
           method: "DELETE",
           headers: {

@@ -2,7 +2,7 @@ import CourseCard from "./CourseCard";
 import { useQuery } from "@tanstack/react-query";
 const fetchTop4 = async () => {
   const res = await fetch(
-    "http://nassar1-001-site1.rtempurl.com/api/Course/Courses?OrderByDesc=Rate&IsPagingEnabled=true&Take=4"
+    "https://nassar1-001-site1.rtempurl.com/api/Course/Courses?OrderByDesc=Rate&IsPagingEnabled=true&Take=4"
   );
   if (!res.ok) throw new Error("Failed to fetch courses");
   return res.json();

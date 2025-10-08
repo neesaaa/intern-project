@@ -19,7 +19,7 @@ const CoursesPage = () => {
     queryKey: ["Courses", currentPage, search],
     queryFn: async () => {
       const res = await fetch(
-        `http://nassar1-001-site1.rtempurl.com/api/Course/Courses?IsPagingEnabled=true&Skip=${currentPage}&Take=6&Filter=${search}`
+        `https://nassar1-001-site1.rtempurl.com/api/Course/Courses?IsPagingEnabled=true&Skip=${currentPage}&Take=6&Filter=${search}`
       );
       if (!res.ok) throw new Error("Failed to fetch Courses");
       return res.json();

@@ -31,7 +31,7 @@ const Login = () => {
     mutationFn: async (data) => {
       setIsLoading(true);
       const res = await fetch(
-        "http://nassar1-001-site1.rtempurl.com/api/Auth/AdminLogin",
+        "https://nassar1-001-site1.rtempurl.com/api/Auth/AdminLogin",
         {
           method: "POST",
           headers: {

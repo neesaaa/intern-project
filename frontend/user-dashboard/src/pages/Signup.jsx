@@ -50,7 +50,7 @@ const Signup = () => {
     mutationFn: async (data) => {
       setIsLoading(true);
       const res = await fetch(
-        "http://nassar1-001-site1.rtempurl.com/api/Auth/Signup",
+        "https://nassar1-001-site1.rtempurl.com/api/Auth/Signup",
         {
           method: "POST",
           headers: {

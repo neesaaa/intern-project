@@ -20,7 +20,7 @@ namespace Service.profiles
         {
             if (string.IsNullOrEmpty(source.ImageUrl))
                 return string.Empty;
-            var url = $"http://nassar1-001-site1.rtempurl.com/{source.ImageUrl}";
+            var url = $"https://nassar1-001-site1.rtempurl.com/{source.ImageUrl}";
             return url;
         }
     }

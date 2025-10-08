@@ -16,7 +16,7 @@ const Dash = () => {
     queryKey: ["stats"],
     queryFn: async () => {
       const res = await fetch(
-        "http://nassar1-001-site1.rtempurl.com/api/Course/Stats",
+        "https://nassar1-001-site1.rtempurl.com/api/Course/Stats",
         {
           headers: {
             Authorization: `Bearer ${token}`,

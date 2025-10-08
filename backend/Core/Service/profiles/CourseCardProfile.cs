@@ -17,20 +17,20 @@ namespace Service.profiles
                 .ForMember(dto => dto.ImageUrl, opt => opt.MapFrom(src =>
                 string.IsNullOrEmpty(src.ImageUrl)
                     ? string.Empty
-                    : $"http://nassar1-001-site1.rtempurl.com/{src.ImageUrl}"))
+                    : $"https://nassar1-001-site1.rtempurl.com/{src.ImageUrl}"))
                 .ForMember(dest => dest.InstructorName, options => options.MapFrom(src => src.Instructor.Name))
                 .ForMember(dest => dest.TotalLectures, options => options.MapFrom(src => src.Sections.Sum(x => x.LecturesNumber)));
             CreateMap<Instructor, InstructorCardDto>()
                                 .ForMember(dto => dto.ImageUrl, opt => opt.MapFrom(src =>
                 string.IsNullOrEmpty(src.ImageUrl)
                     ? string.Empty
-                    : $"http://nassar1-001-site1.rtempurl.com/{src.ImageUrl}"));
+                    : $"https://nassar1-001-site1.rtempurl.com/{src.ImageUrl}"));
 
             CreateMap<Instructor, InstructorDto>()
                                 .ForMember(dto => dto.ImageUrl, opt => opt.MapFrom(src =>
                 string.IsNullOrEmpty(src.ImageUrl)
                     ? string.Empty
-                    : $"http://nassar1-001-site1.rtempurl.com/{src.ImageUrl}"));
+                    : $"https://nassar1-001-site1.rtempurl.com/{src.ImageUrl}"));
             CreateMap<CourseSection, CourseSectionDto>().ReverseMap();
             CreateMap<Course, CourseDetailsDto>();
 

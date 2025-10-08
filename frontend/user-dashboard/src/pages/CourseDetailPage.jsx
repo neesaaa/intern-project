@@ -18,7 +18,7 @@ import { toast } from "react-toastify";
 
 const fecthCoursePage = async (id) => {
   const response = await fetch(
-    `http://nassar1-001-site1.rtempurl.com/api/Course/Course/${id}`
+    `https://nassar1-001-site1.rtempurl.com/api/Course/Course/${id}`
   );
   if (!response.ok) {
     throw new Error("Failed to fetch course");

@@ -1,5 +1,5 @@
 
-const API_URL='http://nassar1-001-site1.rtempurl.com/api/Basket';
+const API_URL='https://nassar1-001-site1.rtempurl.com/api/Basket';
 export async function fetchBasket(token) {
   const res = await fetch(API_URL, {
     headers: { Authorization: `Bearer ${token}` },

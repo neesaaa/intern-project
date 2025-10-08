@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const fetchInstructors = async () => {
   const data = await fetch(
-    "http://nassar1-001-site1.rtempurl.com/api/Course/Instructors"
+    "https://nassar1-001-site1.rtempurl.com/api/Course/Instructors"
   );
   if (!data.ok) throw new Error("Failed to fetch courses");
   return data.json();

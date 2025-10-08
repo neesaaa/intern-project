@@ -63,7 +63,7 @@ const CoursesPage = () => {
     queryKey: ["courses", debouncedFilters],
     queryFn: async () => {
       const qs = buildQueryFromFilters(debouncedFilters);
-      const url = `http://nassar1-001-site1.rtempurl.com/api/Course/Courses?${qs}`;
+      const url = `https://nassar1-001-site1.rtempurl.com/api/Course/Courses?${qs}`;
       console.log(url);
       const res = await fetch(url);
       if (!res.ok) throw new Error("Network response was not ok");
