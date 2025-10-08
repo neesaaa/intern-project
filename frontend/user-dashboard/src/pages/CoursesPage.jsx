@@ -3,7 +3,7 @@ import FilterSideBar from "../components/CoursesPage/FilterSideBar.jsx";
 import FilterSelection from "../components/CoursesPage/FilterSelection.jsx";
 import CourseCard from "../components/LandingSections/CourseCard.jsx";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 
 const buildQueryFromFilters = (filters, index = 1) => {
   const params = new URLSearchParams();
@@ -45,6 +45,13 @@ const CoursesPage = () => {
     orderby: "",
     orderbyDesc: "",
   });
+  const [debouncedFilters, setDebouncedFilters] = useState(filters);
+    useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedFilters(filters);
+    }, 700); 
+    return () => clearTimeout(handler);
+  }, [filters]);
 
   const [expandedSections, setExpandedSections] = useState({
     rating: true,
@@ -53,9 +60,9 @@ const CoursesPage = () => {
     category: true,
   });
   const { data, isLoading } = useQuery({
-    queryKey: ["courses", filters],
+    queryKey: ["courses", debouncedFilters],
     queryFn: async () => {
-      const qs = buildQueryFromFilters(filters);
+      const qs = buildQueryFromFilters(debouncedFilters);
       const url = `https://localhost:7031/api/Course/Courses?${qs}`;
       console.log(url);
       const res = await fetch(url);

@@ -12,6 +12,8 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.1.14",
     "@tanstack/react-query": "^5.90.2",
+    "@uiw/react-markdown-preview": "^5.1.5",
+    "@uiw/react-md-editor": "^4.0.8",
     "jotai": "^2.15.0",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.544.0",

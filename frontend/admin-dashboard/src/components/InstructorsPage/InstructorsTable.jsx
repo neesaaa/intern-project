@@ -7,7 +7,7 @@ import { tokenAtom } from "../../atoms/authAtom.js";
 import { useState } from "react";
 import ModalAddorUpdate from './ModalAddorUpdate.jsx'
 
-export default function InstructorsTable({ instructors ,mutation }) {
+export default function InstructorsTable({setCurrentPage, instructors ,mutation }) {
   const queryClient = useQueryClient();
   const [token, _] = useAtom(tokenAtom);
   const [instructorr ,setinstructor]=useState(null);
@@ -33,6 +33,7 @@ export default function InstructorsTable({ instructors ,mutation }) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["instructors"]);
+      setCurrentPage(1);
       toast.success("deleted successfully");
     },
   });

@@ -1,14 +1,12 @@
 import Header from "../components/Dash/Header";
-import SearchBar from "../components/navbar/SearchBar";
-import { MdOutlineFilterList } from "react-icons/md";
-import InstructorsTable from "../components/InstructorsPage.jsx/InstructorsTable";
+import InstructorsTable from "../components/InstructorsPage/InstructorsTable";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useQuery,useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import ModalAddorUpdate from "../components/InstructorsPage.jsx/ModalAddorUpdate";
 import { useAtom } from "jotai";
 import { tokenAtom } from "../atoms/authAtom";
 import { toast } from "react-toastify";
+import InstructorSearchBarRow from '../components/InstructorsPage/InstructorSearchBarRow'
 
 const Instructorspage = () => {
   const queryClient = useQueryClient();
@@ -59,49 +57,14 @@ const Instructorspage = () => {
 
   const instructors = data.items ?? [];
   const totalPages = Math.ceil(data.totalCount / data.pageSize);
-  console.log(data);
   return (
     <div className="text-black flex flex-col py-8 px-10 bg-[#FCFCFC] h-full shadow-[0px_4px_14px_0px_rgba(167,167,167,0.12)] gap-4 ">
       <Header h1={"Instructors"} />
       <div className="flex flex-col bg-white justify-between rounded-lg gap-6 ">
-        <div className="flex  justify-between items-start px-6 py-8 ">
-          <div className="flex gap-2 items-center">
-            <h1 className="font-medium text-[24px] leading-[30px]">
-              Instructors
-            </h1>
-            <div className=" rounded-xl py-1 px-3 bg-[#EEF0F3]">
-              <span className="font-medium text-[16px] text-[#7E8CA0] leading-[100%]">
-                200
-              </span>
-            </div>
-          </div>
+        
+        <InstructorSearchBarRow setModalopen={setModalopen} addWhat={"Add Instructos"} total={data.totalCount} search={search} setSearchWord={setSearchWord} modalOpen={modalOpen} UpdateOrAddMutation={UpdateOrAddMutation} />
+        <InstructorsTable setCurrentPage={setCurrentPage} instructors={instructors} mutation={UpdateOrAddMutation}/>
 
-          <div className="flex justify-between gap-2 w-1/2">
-            <button
-              onClick={() => setModalopen(true)}
-              className="bg-black rounded-lg w-full text-white px-6 py-2 max-w-40 cursor-pointer "
-            >
-              Add Instructor
-            </button>
-            <SearchBar
-              value={search}
-              SetSerchWord={setSearchWord}
-              withCourses={false}
-              classes="flex-grow shadow-[0px_4px_14px_0px_rgba(167,167,167,0.12)] rounded-xl"
-            />
-            <button className="p-3 roundex-lg shadow-[0px_4px_14px_0px_rgba(167,167,167,0.12)]">
-              <MdOutlineFilterList className="text-gray-500 " />
-            </button>
-            <ModalAddorUpdate
-              isOpen={modalOpen}
-              onClose={() => setModalopen(false)}
-              editMutation={UpdateOrAddMutation}
-            />
-          </div>
-        </div>
-        <InstructorsTable instructors={instructors} mutation={UpdateOrAddMutation}/>
-
-        {/* pagination */}
         {totalPages > 1 && (
           <div className="mt-4 flex items-center justify-center gap-2">
             <button
