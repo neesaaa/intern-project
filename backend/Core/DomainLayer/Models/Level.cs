@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
 
-namespace DomainLayer.Models
-{
-    public enum Level
+    namespace DomainLayer.Models
     {
-        easy,
-        mid,
-        hard
+        public enum Level
+        {
+            easy,
+            mid,
+            hard
+        }
     }
-}

@@ -70,6 +70,8 @@ namespace UdemyApp
             builder.Services.AddScoped<IBasketRepo, BasketRepo>();
             builder.Services.AddScoped<IBasketService, BasketService>();
             builder.Services.AddScoped<IOrderService, OrderService>();
+            builder.Services.AddScoped<IFileService, FileService>();
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddScoped<DataSeed>();
             builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
             {

@@ -28,6 +28,7 @@ namespace DomainLayer.Models
 
         public ICollection<CourseSection> Sections { get; set; } = [];
         public string? ImageUrl { get; set; }
+        public Level Level { get; set; } 
 
 
     }

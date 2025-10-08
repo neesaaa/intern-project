@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-    public class CourseService(IUnitOfWork _unit,IMapper _mapper) : ICourseService
+    public class CourseService(IUnitOfWork _unit,IMapper _mapper, IFileService _fileService) : ICourseService
     {
         public async Task DeleteInstructor(int id)
         {
@@ -139,6 +139,52 @@ namespace Service
             await _unit.SaveChnagesAsync();
 
             return _mapper.Map<Instructor, InstructorCardDto>(newInstructor);
+        }
+        public async Task<CourseCardDto> AddCourseAsync(AddOrUpdateCourseDto dto)
+        {
+            var repo = _unit.GetRepo<Course>();
+            var newCourse = _mapper.Map<AddOrUpdateCourseDto, Course>(dto);
+
+            if (dto.ImageFile != null)
+            {
+                newCourse.ImageUrl = await _fileService.SaveImageAsync(dto.ImageFile, "Courses");
+            }
+
+            await repo.AddAsync(newCourse);
+            await _unit.SaveChnagesAsync();
+
+            return _mapper.Map<Course, CourseCardDto>(newCourse);
+        }
+
+        public async Task<CourseCardDto> UpdateCourseAsync(int id, AddOrUpdateCourseDto dto)
+        {
+            var repo = _unit.GetRepo<Course>();
+            var existingCourse = await repo.GetByIdAsync(id, new CourseDetailsSpecification());
+
+            if (existingCourse == null)
+                throw new NotFoundCourse(id);
+
+            if (dto.ImageFile != null)
+            {
+                if (!string.IsNullOrEmpty(existingCourse.ImageUrl))
+                    await _fileService.DeleteImageAsync(existingCourse.ImageUrl);
+
+                existingCourse.ImageUrl = await _fileService.SaveImageAsync(dto.ImageFile, "Courses");
+            }
+
+            _mapper.Map(dto, existingCourse);
+
+            existingCourse.Sections.Clear();
+            foreach (var sectionDto in dto.Sections)
+            {
+                var section = _mapper.Map<CourseSectionDto, CourseSection>(sectionDto);
+                existingCourse.Sections.Add(section);
+            }
+
+            repo.Update(existingCourse);
+            await _unit.SaveChnagesAsync();
+
+            return _mapper.Map<Course, CourseCardDto>(existingCourse);
         }
 
     }
