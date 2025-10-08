@@ -1,4 +1,4 @@
-
+﻿
 using DomainLayer.Contracts;
 using DomainLayer.Models;
 using DomainLayer.Models.identity;
@@ -18,6 +18,7 @@ using Service_Abstraction;
 using Shared.CourseDtos;
 using StackExchange.Redis;
 using System.Reflection;
+using System.Security.Authentication;
 using System.Text.Json.Serialization;
 using UdemyApp.CustomMidlleWare;
 
@@ -35,7 +36,6 @@ namespace UdemyApp
             builder.Services.AddControllers()
                    .AddJsonOptions(options =>
                    {
-                   // Preserve PascalCase in the JSON output
                    options.JsonSerializerOptions.PropertyNamingPolicy = null;
                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                        options.JsonSerializerOptions.ReferenceHandler =ReferenceHandler.IgnoreCycles;
@@ -48,7 +48,6 @@ namespace UdemyApp
             });
 
 
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
             builder.Services.AddDbContext<StoreDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddDbContext<JWTIdentityDbContext>(options =>
@@ -73,11 +72,16 @@ namespace UdemyApp
             builder.Services.AddScoped<IFileService, FileService>();
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddScoped<DataSeed>();
-            builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
-            {
-                var configuration = builder.Configuration.GetConnectionString("RedisConnection");
-                return ConnectionMultiplexer.Connect(configuration!);
-            });
+                builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+                {
+                    var options = new ConfigurationOptions
+                    {
+                        EndPoints = { "redis-17600.c16.us-east-1-3.ec2.redns.redis-cloud.com:17600" }, 
+                        User = "default",                        
+                        Password = "hSt70XVJgcLy8bk9JO9aKciooBWyjC34", 
+                    };
+                    return ConnectionMultiplexer.Connect(options);
+                });
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>(options =>
             {
@@ -144,7 +148,7 @@ namespace UdemyApp
 
             var seedObj = services.GetRequiredService<DataSeed>();
             seedObj.SeedAdminAsync();
-           
+
 
 
 
