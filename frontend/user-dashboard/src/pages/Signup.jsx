@@ -42,21 +42,23 @@ const Signup = () => {
   const [loading, setIsLoading] = useState(false);
   const [error, setError] = useState({});
   const [_, setTokenAtomValue] = useAtom(tokenAtom);
-  const [__,setCart]=useAtom(cartAtom);
-
+  const [__, setCart] = useAtom(cartAtom);
 
   const navigate = useNavigate();
 
   const mutation = useMutation({
     mutationFn: async (data) => {
       setIsLoading(true);
-      const res = await fetch("https://localhost:7031/api/Auth/Signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const res = await fetch(
+        "http://nassar1-001-site1.rtempurl.com/api/Auth/Signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       if (!res.ok) {
         throw new Error("Failed to signup");
       }
@@ -70,7 +72,7 @@ const Signup = () => {
       localStorage.setItem("token", data.Token);
 
       const basket = await fetchBasket(data.Token);
-      setCart(basket.Items); 
+      setCart(basket.Items);
       console.log(basket);
       toast.success(`Welcome back ${data.DisplayName}`);
       navigate("/");

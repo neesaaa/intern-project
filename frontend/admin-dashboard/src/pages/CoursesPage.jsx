@@ -2,7 +2,7 @@ import CourseCard from "../components/Courses/CourseCard";
 import Header from "../components/Dash/Header";
 import InstructorSearchBarRow from "../components/InstructorsPage/InstructorSearchBarRow";
 import { useState } from "react";
-import { useQueryClient,useQuery } from "@tanstack/react-query";
+import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 import { tokenAtom } from "../atoms/authAtom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -12,14 +12,14 @@ const CoursesPage = () => {
   const queryClient = useQueryClient();
   const [search, setSearchWord] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [token,_]=useAtom(tokenAtom);
-  const navigation=useNavigate();
+  const [token, _] = useAtom(tokenAtom);
+  const navigation = useNavigate();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["Courses", currentPage, search],
     queryFn: async () => {
       const res = await fetch(
-        `https://localhost:7031/api/Course/Courses?IsPagingEnabled=true&Skip=${currentPage}&Take=6&Filter=${search}`
+        `http://nassar1-001-site1.rtempurl.com/api/Course/Courses?IsPagingEnabled=true&Skip=${currentPage}&Take=6&Filter=${search}`
       );
       if (!res.ok) throw new Error("Failed to fetch Courses");
       return res.json();
@@ -31,21 +31,30 @@ const CoursesPage = () => {
 
   const courses = data.items ?? [];
   const totalPages = Math.ceil(data.totalCount / data.pageSize);
-  
+
   return (
     <div className="text-black flex flex-col py-8 px-10 bg-[#FCFCFC] h-full gap-4">
       <Header h1={"Courses"} />
       <div className="flex flex-col bg-white rounded-xl gap-6">
         <div className="flex flex-col bg-white justify-between rounded-lg gap-6 ">
-          <InstructorSearchBarRow text="Courses" total={data.totalCount} course={true} nav={()=>navigation('/add')} setModalopen={()=>console.log('sd')} addWhat={"Add Course"} search={search} setSearchWord={setSearchWord}  />
+          <InstructorSearchBarRow
+            text="Courses"
+            total={data.totalCount}
+            course={true}
+            nav={() => navigation("/add")}
+            setModalopen={() => console.log("sd")}
+            addWhat={"Add Course"}
+            search={search}
+            setSearchWord={setSearchWord}
+          />
           <div className="grid grid-cols-3 px-6 gap-6">
-            {courses&&courses.map((course)=>(
-              <CourseCard {...course}  key={course.Id}/>
-            ))}
+            {courses &&
+              courses.map((course) => (
+                <CourseCard {...course} key={course.Id} />
+              ))}
           </div>
         </div>
 
-        
         {/* pagination */}
         {totalPages > 1 && (
           <div className="mt-4 flex items-center justify-center gap-2">
@@ -83,7 +92,6 @@ const CoursesPage = () => {
           </div>
         )}
       </div>
-      
     </div>
   );
 };

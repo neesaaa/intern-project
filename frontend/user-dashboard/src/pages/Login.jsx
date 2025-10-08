@@ -27,18 +27,21 @@ const Login = () => {
 
   const navigate = useNavigate();
   const [_, setTokenAtomValue] = useAtom(tokenAtom);
-  const [__,setCart]=useAtom(cartAtom);
+  const [__, setCart] = useAtom(cartAtom);
 
   const mutation = useMutation({
     mutationFn: async (data) => {
       setIsLoading(true);
-      const res = await fetch("https://localhost:7031/api/Auth/Login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const res = await fetch(
+        "http://nassar1-001-site1.rtempurl.com/api/Auth/Login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       if (!res.ok) throw new Error("Network response was not ok");
       return res.json();
     },
@@ -49,7 +52,7 @@ const Login = () => {
       localStorage.setItem("Admintoken", data.Token);
 
       const basket = await fetchBasket(data.Token);
-      setCart(basket.Items); 
+      setCart(basket.Items);
       console.log(basket);
       toast.success(`Welcome back ${data.DisplayName}`);
       navigate("/");

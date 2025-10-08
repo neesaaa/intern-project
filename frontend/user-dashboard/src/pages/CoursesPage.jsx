@@ -3,7 +3,7 @@ import FilterSideBar from "../components/CoursesPage/FilterSideBar.jsx";
 import FilterSelection from "../components/CoursesPage/FilterSelection.jsx";
 import CourseCard from "../components/LandingSections/CourseCard.jsx";
 import { useQuery } from "@tanstack/react-query";
-import { useState ,useEffect} from "react";
+import { useState, useEffect } from "react";
 
 const buildQueryFromFilters = (filters, index = 1) => {
   const params = new URLSearchParams();
@@ -36,7 +36,7 @@ const buildQueryFromFilters = (filters, index = 1) => {
 };
 
 const CoursesPage = () => {
-  const [SortBy,setsortby]=useState('Latest');
+  const [SortBy, setsortby] = useState("Latest");
   const [filters, setFilters] = useState({
     rating: 0,
     lectureRange: "all",
@@ -46,10 +46,10 @@ const CoursesPage = () => {
     orderbyDesc: "",
   });
   const [debouncedFilters, setDebouncedFilters] = useState(filters);
-    useEffect(() => {
+  useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedFilters(filters);
-    }, 700); 
+    }, 700);
     return () => clearTimeout(handler);
   }, [filters]);
 
@@ -63,7 +63,7 @@ const CoursesPage = () => {
     queryKey: ["courses", debouncedFilters],
     queryFn: async () => {
       const qs = buildQueryFromFilters(debouncedFilters);
-      const url = `https://localhost:7031/api/Course/Courses?${qs}`;
+      const url = `http://nassar1-001-site1.rtempurl.com/api/Course/Courses?${qs}`;
       console.log(url);
       const res = await fetch(url);
       if (!res.ok) throw new Error("Network response was not ok");
@@ -76,7 +76,11 @@ const CoursesPage = () => {
   return (
     <main className="container mx-auto p-4 flex flex-col gap-6">
       <Header />
-      <FilterSelection setFilters={setFilters} sort={SortBy} setter={setsortby}/>
+      <FilterSelection
+        setFilters={setFilters}
+        sort={SortBy}
+        setter={setsortby}
+      />
       <section className="flex gap-6">
         <FilterSideBar
           filters={filters}

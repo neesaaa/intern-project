@@ -102,7 +102,9 @@ const CourseAddPage = () => {
   } = useQuery({
     queryKey: ["instructors"],
     queryFn: async () => {
-      const res = await fetch(`https://localhost:7031/api/Course/Instructors`);
+      const res = await fetch(
+        `http://nassar1-001-site1.rtempurl.com/api/Course/Instructors`
+      );
       if (!res.ok) throw new Error("Failed to fetch instructors");
       return res.json();
     },
@@ -118,7 +120,7 @@ const CourseAddPage = () => {
     queryFn: async () => {
       if (!courseId) return null;
       const res = await fetch(
-        `https://localhost:7031/api/Course/Course/${courseId}`
+        `http://nassar1-001-site1.rtempurl.com/api/Course/Course/${courseId}`
       );
       if (!res.ok) throw new Error("Failed to fetch course");
       return res.json();
@@ -169,7 +171,9 @@ const CourseAddPage = () => {
       });
       setRate(Math.round(courseData.Rate) || 0);
       if (courseData.ImageUrl) {
-        setExistingImage(`https://localhost:7031/${courseData.ImageUrl}`);
+        setExistingImage(
+          `http://nassar1-001-site1.rtempurl.com/${courseData.ImageUrl}`
+        );
       }
       if (courseData.Sections && courseData.Sections.length > 0) {
         const initialSections = courseData.Sections.map((section, idx) => ({
@@ -278,11 +282,11 @@ const CourseAddPage = () => {
       let method = "POST";
 
       if (isEditMode) {
-        url = `https://localhost:7031/api/Course/Update/${courseId}`;
+        url = `http://nassar1-001-site1.rtempurl.com/api/Course/Update/${courseId}`;
         method = "PUT";
         formDataToSend.append("Id", String(courseId));
       } else {
-        url = "https://localhost:7031/api/Course/Add";
+        url = "http://nassar1-001-site1.rtempurl.com/api/Course/Add";
         method = "POST";
       }
 

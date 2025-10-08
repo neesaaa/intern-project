@@ -17,26 +17,26 @@ namespace Service.profiles
                 .ForMember(dto => dto.ImageUrl, opt => opt.MapFrom(src =>
                 string.IsNullOrEmpty(src.ImageUrl)
                     ? string.Empty
-                    : $"https://localhost:7031/{src.ImageUrl}"))
+                    : $"http://nassar1-001-site1.rtempurl.com/{src.ImageUrl}"))
                 .ForMember(dest => dest.InstructorName, options => options.MapFrom(src => src.Instructor.Name))
                 .ForMember(dest => dest.TotalLectures, options => options.MapFrom(src => src.Sections.Sum(x => x.LecturesNumber)));
             CreateMap<Instructor, InstructorCardDto>()
                                 .ForMember(dto => dto.ImageUrl, opt => opt.MapFrom(src =>
                 string.IsNullOrEmpty(src.ImageUrl)
                     ? string.Empty
-                    : $"https://localhost:7031/{src.ImageUrl}"));
+                    : $"http://nassar1-001-site1.rtempurl.com/{src.ImageUrl}"));
 
             CreateMap<Instructor, InstructorDto>()
                                 .ForMember(dto => dto.ImageUrl, opt => opt.MapFrom(src =>
                 string.IsNullOrEmpty(src.ImageUrl)
                     ? string.Empty
-                    : $"https://localhost:7031/{src.ImageUrl}"));
+                    : $"http://nassar1-001-site1.rtempurl.com/{src.ImageUrl}"));
             CreateMap<CourseSection, CourseSectionDto>().ReverseMap();
             CreateMap<Course, CourseDetailsDto>();
 
             CreateMap<AddOrUpdateInstructor, Instructor>()
-                .ForMember(dest => dest.Id, opt => opt.Condition(src => src.Id.HasValue)) 
-                .ForAllMembers(opt => opt.Condition((src, dest, val) => val != null)); 
+                .ForMember(dest => dest.Id, opt => opt.Condition(src => src.Id.HasValue))
+                .ForAllMembers(opt => opt.Condition((src, dest, val) => val != null));
 
             CreateMap<Instructor, AddOrUpdateInstructor>();
             CreateMap<AddOrUpdateCourseDto, Course>().ReverseMap();

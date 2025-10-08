@@ -15,11 +15,14 @@ const Dash = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ["stats"],
     queryFn: async () => {
-      const res = await fetch("https://localhost:7031/api/Course/Stats", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await fetch(
+        "http://nassar1-001-site1.rtempurl.com/api/Course/Stats",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (!res.ok) throw new Error("Failed to fetch stats");
       return res.json();
     },

@@ -5,18 +5,22 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 import { tokenAtom } from "../../atoms/authAtom.js";
 import { useState } from "react";
-import ModalAddorUpdate from './ModalAddorUpdate.jsx'
+import ModalAddorUpdate from "./ModalAddorUpdate.jsx";
 
-export default function InstructorsTable({setCurrentPage, instructors ,mutation }) {
+export default function InstructorsTable({
+  setCurrentPage,
+  instructors,
+  mutation,
+}) {
   const queryClient = useQueryClient();
   const [token, _] = useAtom(tokenAtom);
-  const [instructorr ,setinstructor]=useState(null);
+  const [instructorr, setinstructor] = useState(null);
 
   const deleteInstructorMutation = useMutation({
     mutationFn: async (id) => {
-      mutationKey:['instructors',id]
+      mutationKey: ["instructors", id];
       const res = await fetch(
-        `https://localhost:7031/api/Course/Instructor/${id}`,
+        `http://nassar1-001-site1.rtempurl.com/api/Course/Instructor/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -38,24 +42,21 @@ export default function InstructorsTable({setCurrentPage, instructors ,mutation 
     },
   });
 
-
-  const [updatemodal,setUpdatemodal]=useState(false)
-  const [viewmodal,setviewmodal]=useState(false)
+  const [updatemodal, setUpdatemodal] = useState(false);
+  const [viewmodal, setviewmodal] = useState(false);
 
   const handleDelete = (id) => {
     deleteInstructorMutation.mutate(id);
   };
 
-  const HandleUpdate=(instructor)=>{
+  const HandleUpdate = (instructor) => {
     setinstructor(instructor);
     setUpdatemodal(true);
-
-  }
-  const ViewUpdate=(instructor)=>{
+  };
+  const ViewUpdate = (instructor) => {
     setinstructor(instructor);
     setviewmodal(true);
-
-  }
+  };
 
   return (
     <div className="w-full px-6 rounded-t-lg py-2">
@@ -78,9 +79,23 @@ export default function InstructorsTable({setCurrentPage, instructors ,mutation 
           </tbody>
         </table>
       </div>
-      {instructorr   &&<ModalAddorUpdate isOpen={updatemodal} isEdit={true}  instructor={instructorr} onClose={()=>setUpdatemodal(false)} editMutation={mutation}/>}
-      {instructorr   &&<ModalAddorUpdate isOpen={viewmodal} isView={true}  instructor={instructorr} onClose={()=>setviewmodal(false)}/>}
-
+      {instructorr && (
+        <ModalAddorUpdate
+          isOpen={updatemodal}
+          isEdit={true}
+          instructor={instructorr}
+          onClose={() => setUpdatemodal(false)}
+          editMutation={mutation}
+        />
+      )}
+      {instructorr && (
+        <ModalAddorUpdate
+          isOpen={viewmodal}
+          isView={true}
+          instructor={instructorr}
+          onClose={() => setviewmodal(false)}
+        />
+      )}
     </div>
   );
 }
