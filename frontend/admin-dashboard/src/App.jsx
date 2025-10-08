@@ -4,12 +4,12 @@ import MainLayout from "./MainLayout";
 import Login from "./pages/Login";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Dash from './pages/Dash'
+import Dash from "./pages/Dash";
 import Instructorspage from "./pages/Instructorspage";
+import CoursesPage from "./pages/CoursesPage";
+import CourseAddPage from "./pages/CourseAddPage";
 
 const queryClient = new QueryClient();
-
-
 
 function App() {
   const router = createBrowserRouter([
@@ -22,13 +22,21 @@ function App() {
           element: <Dash />,
         },
         {
-          path:'/instructors',
-          element: <Instructorspage />
+          path: "/instructors",
+          element: <Instructorspage />,
         },
         {
-          path:'/courses',
-          element: <h1>courses</h1>
-        }
+          path: "/courses",
+          element: <CoursesPage />,
+        },
+        {
+          path: "add",
+          element: <CourseAddPage />,
+        },
+        {
+          path: ":courseId/edit",
+          element: <CourseAddPage />,
+        },
       ],
     },
     {
@@ -40,7 +48,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-        <ToastContainer position="top-right" autoClose={3000} />
+      <ToastContainer position="top-right" autoClose={3000} />
     </QueryClientProvider>
   );
 }

@@ -118,6 +118,7 @@ const Checkoutpage = () => {
         if (!errors[field]) errors[field] = issue.message;
       }
       setError(errors);
+      return;
     }
     setError({});
     mutation.mutate(data);

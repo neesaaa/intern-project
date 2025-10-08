@@ -69,6 +69,22 @@ namespace persentation.Controllers
 
         }
 
+        [HttpPost("Add")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AddCourse([FromForm] AddOrUpdateCourseDto dto)
+        {
+            var result = await _service.AddCourseAsync(dto);
+            return Ok(new { message = "Course added successfully", data = result });
+        }
+
+        [HttpPut("Update/{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateCourse(int id, [FromForm] AddOrUpdateCourseDto dto)
+        {
+            var result = await _service.UpdateCourseAsync(id, dto);
+            return Ok(new { message = "Course updated successfully", data = result });
+        }
+
 
     }
 }

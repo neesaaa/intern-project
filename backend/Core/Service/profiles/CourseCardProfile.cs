@@ -31,7 +31,7 @@ namespace Service.profiles
                 string.IsNullOrEmpty(src.ImageUrl)
                     ? string.Empty
                     : $"https://localhost:7031/{src.ImageUrl}"));
-            CreateMap<CourseSection, CourseSectionDto>();
+            CreateMap<CourseSection, CourseSectionDto>().ReverseMap();
             CreateMap<Course, CourseDetailsDto>();
 
             CreateMap<AddOrUpdateInstructor, Instructor>()
@@ -39,6 +39,8 @@ namespace Service.profiles
                 .ForAllMembers(opt => opt.Condition((src, dest, val) => val != null)); 
 
             CreateMap<Instructor, AddOrUpdateInstructor>();
+            CreateMap<AddOrUpdateCourseDto, Course>().ReverseMap();
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DomainLayer.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,8 @@ namespace Shared.CourseDtos
 
         public InstructorDto Instructor { get; set; } = default!;
         public ICollection<CourseSectionDto> Sections { get; set; } = new List<CourseSectionDto>();
+        public Level Level { get; set; }
+
 
     }
 }

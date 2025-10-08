@@ -17,6 +17,8 @@ namespace Service_Abstraction
         Task DeleteInstructor(int id);
         Task<InstructorCardDto> UpdateOrAddAsync(AddOrUpdateInstructor instructor);
         Task<InstructorCardDto>? GetInstructorById(int id);
+        Task<CourseCardDto> AddCourseAsync(AddOrUpdateCourseDto dto);
+        Task<CourseCardDto> UpdateCourseAsync(int id, AddOrUpdateCourseDto dto);
 
 
     }
