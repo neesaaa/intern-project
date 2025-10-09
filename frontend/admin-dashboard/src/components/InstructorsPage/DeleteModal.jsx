@@ -2,7 +2,7 @@ import { X, Trash2 } from "lucide-react"
 import deletIcon from '../../assets/instructors/2eb4f6d72225b1e52c125ff2e8809c456da4e79e.png'
 import {createPortal } from 'react-dom'
 
-export function DeleteModal({ isOpen, onClose, onConfirm, employeeName }) {
+export function DeleteModal({ isOpen, onClose, onConfirm, employeeName,type="Instructor" }) {
   if (!isOpen) return null
 
   return createPortal(
@@ -22,7 +22,7 @@ export function DeleteModal({ isOpen, onClose, onConfirm, employeeName }) {
 
         <p className="font-medium text-[18px] leading-[20px] tracking-[0] text-gray-500">
           Are you sure you want to delete this{" "}
-          <span className="font-semibold text-gray-900">Instructor {employeeName}</span> ?
+          <span className="font-semibold text-gray-900">{type} {employeeName}</span> ?
         </p>
 
         <div className="flex gap-4 w-full">

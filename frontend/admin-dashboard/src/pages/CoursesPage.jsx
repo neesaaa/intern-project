@@ -2,11 +2,12 @@ import CourseCard from "../components/Courses/CourseCard";
 import Header from "../components/Dash/Header";
 import InstructorSearchBarRow from "../components/InstructorsPage/InstructorSearchBarRow";
 import { useState } from "react";
-import { useQueryClient, useQuery } from "@tanstack/react-query";
+import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 import { tokenAtom } from "../atoms/authAtom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const CoursesPage = () => {
   const queryClient = useQueryClient();
@@ -25,6 +26,31 @@ const CoursesPage = () => {
       return res.json();
     },
     refetchOnWindowFocus: false,
+  });
+
+  const deleteCourseMutation = useMutation({
+    mutationKey: ["Courses"],
+    mutationFn: async (id) => {
+      const res = await fetch(
+        `https://nassar1-001-site1.rtempurl.com/api/Course/Delete/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!res.ok) throw new Error("Failed to delete course");
+      return res;
+    },
+    onSuccess: () => {
+      toast.success("Course deleted successfully!");
+      queryClient.invalidateQueries(["Courses"]);
+    },
+    onError: () => {
+      toast.error("Failed to delete course");
+    },
   });
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading data</p>;
@@ -50,7 +76,11 @@ const CoursesPage = () => {
           <div className="grid grid-cols-3 px-6 gap-6">
             {courses &&
               courses.map((course) => (
-                <CourseCard {...course} key={course.Id} />
+                <CourseCard
+                  {...course}
+                  key={course.Id}
+                  deleteMutation={deleteCourseMutation}
+                />
               ))}
           </div>
         </div>

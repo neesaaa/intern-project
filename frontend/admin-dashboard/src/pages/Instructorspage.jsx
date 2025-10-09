@@ -34,10 +34,9 @@ const Instructorspage = () => {
         {
           method: "post",
           headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(instructor),
+          body: instructor,
         }
       );
       if (!res.ok) throw new Error();

@@ -1,6 +1,8 @@
 import StarReadOnly from "../InstructorsPage/StarReadOnly";
 import { Eye, Pencil, Trash2, Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { DeleteModal } from "../InstructorsPage/DeleteModal";
 
 const CourseCard = ({
   Name,
@@ -12,8 +14,10 @@ const CourseCard = ({
   ImageUrl,
   Id,
   style,
-  Category
+  Category,
+  deleteMutation
 }) => {
+  const[openmodal,setOpenModal]=useState(false);
   const navigate = useNavigate();
   return (
     <div
@@ -50,7 +54,7 @@ const CourseCard = ({
           <Pencil className="h-4 w-4 text-blue-500" />
         </button>
         <button className="h-8 w-8 cursor-pointer flex items-center justify-center rounded-md  border border-[#F1F3F9] shadow-[0px_4px_14px_0px_rgba(167,167,167,0.12)] hover:bg-gray-200 hover:scale-110">
-          <Trash2 className="h-4 w-4 text-red-500" />
+          <Trash2 className="h-4 w-4 text-red-500" onClick={()=>setOpenModal(true)} />
         </button>
       </div>
       <div className="absolute top-5 left-5 px-4 py-2  z-50 bg-[#EEF2FF] rounded-lg md:hidden lg:flex items-center justify-center ">
@@ -58,6 +62,7 @@ const CourseCard = ({
           {Category}{" "}
         </span>
       </div>
+      <DeleteModal key={`Course-${Id}`} isOpen={openmodal} onClose={()=>setOpenModal(false)} onConfirm={()=> deleteMutation.mutate(Id)} type="Course" employeeName={Name} />
     </div>
   );
 };

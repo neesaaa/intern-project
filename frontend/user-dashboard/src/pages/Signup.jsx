@@ -67,13 +67,11 @@ const Signup = () => {
     },
     onSuccess: async (data) => {
       setIsLoading(false);
-
+      localStorage.setItem
       setTokenAtomValue(data.Token);
       localStorage.setItem("token", data.Token);
 
       const basket = await fetchBasket(data.Token);
-      setCart(basket.Items);
-      console.log(basket);
       toast.success(`Welcome back ${data.DisplayName}`);
       navigate("/");
     },
