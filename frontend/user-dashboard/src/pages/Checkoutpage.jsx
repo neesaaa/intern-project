@@ -35,7 +35,7 @@ const checkoutSchema = z
       .optional(),
     expiryDate: z
       .string()
-      .regex(/^(0[1-9]|1[0-2])\/\d{4}$/, "Expiry date must be in MM/YY format")
+      .regex(/^(0[1-9]|1[0-2])\/\d{4}$/, "Expiry date must be in MM/YYYY format")
       .optional(),
     cvc: z
       .string()
@@ -87,15 +87,6 @@ const Checkoutpage = () => {
             BasketId: 2,
           }),
         }
-      );
-      console.log(
-        JSON.stringify({
-          Address: {
-            Country: data.country,
-            State: data.state,
-          },
-          BasketId: 2,
-        })
       );
       if (!res.ok) throw new Error("Failed to place order");
       return res.json();

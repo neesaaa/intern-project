@@ -45,6 +45,7 @@ const Login = () => {
     },
     onSuccess: async (data) => {
       setIsLoading(false);
+      localStorage.setItem('Admintoken',data.Token)
 
       setTokenAtomValue(data.Token);
 

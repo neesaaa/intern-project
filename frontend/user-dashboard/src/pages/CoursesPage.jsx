@@ -49,7 +49,7 @@ const CoursesPage = () => {
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedFilters(filters);
-    }, 700);
+    }, 400);
     return () => clearTimeout(handler);
   }, [filters]);
 
@@ -64,15 +64,12 @@ const CoursesPage = () => {
     queryFn: async () => {
       const qs = buildQueryFromFilters(debouncedFilters);
       const url = `https://nassar1-001-site1.rtempurl.com/api/Course/Courses?${qs}`;
-      console.log(url);
       const res = await fetch(url);
       if (!res.ok) throw new Error("Network response was not ok");
       return res.json();
     },
     onError: (err) => console.log(err),
   });
-  if (isLoading) return <div>Loading...</div>;
-  console.log(data.items);
   return (
     <main className="container mx-auto p-4 flex flex-col gap-6">
       <Header />
@@ -88,21 +85,26 @@ const CoursesPage = () => {
           expandedSections={expandedSections}
           setExpandedSections={setExpandedSections}
         />
-        <div className="flex-grow text-black grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  3xl:grid-cols-4 gap-6">
-          {data.items?.map((course) => (
-            <CourseCard
-              key={course.Id}
-              Id={course.Id}
-              Name={course.Name}
-              InstructorName={course.InstructorName}
-              Rate={course.Rate}
-              TotalLectures={course.TotalLectures}
-              TotalHours={course.TotalHours}
-              Cost={course.Cost}
-              ImageUrl={course.ImageUrl}
-            />
-          ))}
-        </div>
+        {isLoading ? (
+          <div className="w-12 h-12 self-center mx-auto rounded-full border-4 border-gray-200 border-t-gray-500 animate-spin"></div>
+        ) : (
+          <div className="flex-grow text-black grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  3xl:grid-cols-4 gap-6">
+            {data.items?.map((course) => (
+              <CourseCard
+                key={course.Id}
+                Id={course.Id}
+                Name={course.Name}
+                InstructorName={course.InstructorName}
+                Rate={course.Rate}
+                TotalLectures={course.TotalLectures}
+                TotalHours={course.TotalHours}
+                Cost={course.Cost}
+                ImageUrl={course.ImageUrl}
+                Category={course.Category}
+              />
+            ))}
+          </div>
+        )}
       </section>
     </main>
   );

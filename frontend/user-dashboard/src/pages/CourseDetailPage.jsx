@@ -39,7 +39,10 @@ const CourseDetailPage = () => {
       console.error("Failed to fetch course:", err);
     },
   });
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="w-12 h-12 self-center mx-auto rounded-full border-4 border-gray-200 border-t-gray-500 animate-spin"></div>
+    );
   if (error) return <div>Error loading course</div>;
 
   async function HandleAddtoCart() {
@@ -65,7 +68,6 @@ const CourseDetailPage = () => {
       Id: 12,
       Items: updatedCart,
     };
-    console.log("sending JSON:", JSON.stringify(orderObject));
 
     try {
       const data = await UpdateToBasket(token, orderObject);

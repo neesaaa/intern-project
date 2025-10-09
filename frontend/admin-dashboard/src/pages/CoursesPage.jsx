@@ -52,7 +52,12 @@ const CoursesPage = () => {
       toast.error("Failed to delete course");
     },
   });
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <div className="p-4 text-black h-full flex items-center justify-center">
+        <div className="w-12 h-12 self-center mx-auto  rounded-full border-4 border-gray-200 border-t-gray-500 animate-spin"></div>
+      </div>
+    );
   if (error) return <p>Error loading data</p>;
 
   const courses = data.items ?? [];
@@ -77,6 +82,7 @@ const CoursesPage = () => {
             {courses &&
               courses.map((course) => (
                 <CourseCard
+                  setPage={() => setCurrentPage(1)}
                   {...course}
                   key={course.Id}
                   deleteMutation={deleteCourseMutation}

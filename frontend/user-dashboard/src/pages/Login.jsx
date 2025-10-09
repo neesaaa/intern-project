@@ -49,11 +49,10 @@ const Login = () => {
       setIsLoading(false);
 
       setTokenAtomValue(data.Token);
-      localStorage.setItem("Admintoken", data.Token);
+      localStorage.setItem("token", data.Token);
 
       const basket = await fetchBasket(data.Token);
       setCart(basket.Items);
-      console.log(basket);
       toast.success(`Welcome back ${data.DisplayName}`);
       navigate("/");
     },

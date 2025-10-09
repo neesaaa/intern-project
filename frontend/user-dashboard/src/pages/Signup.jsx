@@ -62,18 +62,17 @@ const Signup = () => {
       if (!res.ok) {
         throw new Error("Failed to signup");
       }
-      console.log("done");
       return res.json();
     },
     onSuccess: async (data) => {
       setIsLoading(false);
-      localStorage.setItem
+      localStorage.setItem;
       setTokenAtomValue(data.Token);
       localStorage.setItem("token", data.Token);
 
-      const basket = await fetchBasket(data.Token);
-      toast.success(`Welcome back ${data.DisplayName}`);
+      await fetchBasket(data.Token);
       navigate("/");
+      toast.success(`Welcome back ${data.DisplayName}`);
     },
     onError: () => {
       setIsLoading(false);
@@ -99,18 +98,15 @@ const Signup = () => {
         ) {
           passwordMismatch = true;
         }
-        console.log(issue.message);
       }
       if (passwordMismatch) {
         toast.error("Passwords don't match");
       }
-      console.log("s");
       setError(errors);
       return;
     }
     setIsLoading(true);
     const { ConfirmPassword, ...payload } = data;
-    console.log(payload);
     mutation.mutate(payload);
   };
 

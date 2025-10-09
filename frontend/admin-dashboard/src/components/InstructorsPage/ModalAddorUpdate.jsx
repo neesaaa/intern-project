@@ -43,7 +43,7 @@ export default function ModalAddorUpdate({
     formData.append("Rate", rate);
     formData.append("Title", e.target.Title.value);
     formData.append("Description", e.target.description.value);
-    formData.append("ImageUrl", "Nesa Production");
+    formData.append("ImageUrl", `images/Instructors/${file?.name || ""}`);
     if (file) formData.append("ImageFile", file);
 
     editMutation.mutate(formData);

@@ -16,7 +16,7 @@ const InstructorCardHolder = ({ ref }) => {
   if (isLoading)
     return (
       <div className="p-4 text-black">
-        <h1>Loading...</h1>
+        <div className="w-12 h-12 self-center mx-auto rounded-full border-4 border-gray-200 border-t-gray-500 animate-spin"></div>
       </div>
     );
   if (error)

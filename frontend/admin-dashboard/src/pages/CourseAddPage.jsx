@@ -45,6 +45,7 @@ const courseSchema = z.object({
 
 const CourseAddPage = () => {
   const { courseId } = useParams();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [token, _] = useAtom(tokenAtom);
   const isEditMode = !!courseId;
 
@@ -218,6 +219,7 @@ const CourseAddPage = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     const submitData = {
       ...formData,
@@ -242,6 +244,7 @@ const CourseAddPage = () => {
           behavior: "smooth",
         });
       }, 100);
+      setIsSubmitting(false);
       return;
     }
 
@@ -332,7 +335,6 @@ const CourseAddPage = () => {
       label: i.Name,
     })) || [];
 
-  console.log(formData);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -547,9 +549,14 @@ const CourseAddPage = () => {
                 </button>
                 <button
                   type="submit"
-                  className="py-4 px-3 bg-black text-white flex-[5] rounded-lg hover:bg-black/50 cursor-pointer"
+                  disabled={isSubmitting}
+                  className="py-4 px-3 bg-black text-white disabled:bg-gray-300 flex-[5] rounded-lg hover:bg-black/50 cursor-pointer"
                 >
-                  {isEditMode ? "Update Course" : "Submit"}
+                  {isSubmitting
+                    ? "submitting"
+                    : isEditMode
+                    ? "Update Course"
+                    : "Submit"}
                 </button>
               </div>
             </div>

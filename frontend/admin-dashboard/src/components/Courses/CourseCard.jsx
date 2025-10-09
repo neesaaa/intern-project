@@ -15,13 +15,14 @@ const CourseCard = ({
   Id,
   style,
   Category,
-  deleteMutation
+  deleteMutation,
+  setPage,
 }) => {
-  const[openmodal,setOpenModal]=useState(false);
+  const [openmodal, setOpenModal] = useState(false);
   const navigate = useNavigate();
   return (
     <div
-      className={`flex relative flex-col ${style}  border  border-border_color p-4 gap-3 lg:gap-5 text-black rounded-xl shadow-[0_0_8px_0_rgba(0,0,0,0.12)] min-w-40 md:min-w-60 h-full scrollbar-hide`}
+      className={`flex relative flex-col ${style} hover:scale-105 hover:border hover:border-amber-200  border  border-border_color p-4 gap-3 lg:gap-5 text-black rounded-xl shadow-[0_0_8px_0_rgba(0,0,0,0.12)] min-w-40 md:min-w-60 h-full scrollbar-hide`}
     >
       {ImageUrl && (
         <img
@@ -54,7 +55,10 @@ const CourseCard = ({
           <Pencil className="h-4 w-4 text-blue-500" />
         </button>
         <button className="h-8 w-8 cursor-pointer flex items-center justify-center rounded-md  border border-[#F1F3F9] shadow-[0px_4px_14px_0px_rgba(167,167,167,0.12)] hover:bg-gray-200 hover:scale-110">
-          <Trash2 className="h-4 w-4 text-red-500" onClick={()=>setOpenModal(true)} />
+          <Trash2
+            className="h-4 w-4 text-red-500"
+            onClick={() => setOpenModal(true)}
+          />
         </button>
       </div>
       <div className="absolute top-5 left-5 px-4 py-2  z-50 bg-[#EEF2FF] rounded-lg md:hidden lg:flex items-center justify-center ">
@@ -62,7 +66,17 @@ const CourseCard = ({
           {Category}{" "}
         </span>
       </div>
-      <DeleteModal key={`Course-${Id}`} isOpen={openmodal} onClose={()=>setOpenModal(false)} onConfirm={()=> deleteMutation.mutate(Id)} type="Course" employeeName={Name} />
+      <DeleteModal
+        key={`Course-${Id}`}
+        isOpen={openmodal}
+        onClose={() => setOpenModal(false)}
+        onConfirm={() => {
+          deleteMutation.mutate(Id);
+          setPage();
+        }}
+        type="Course"
+        employeeName={Name}
+      />
     </div>
   );
 };

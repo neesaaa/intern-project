@@ -33,9 +33,10 @@ export function DeleteModal({ isOpen, onClose, onConfirm, employeeName,type="Ins
             Cancel
           </button>
           <button className="flex-2 bg-red-400 text-white hover:bg-red-500 cursor-pointer px-6 py-2 rounded-lg " onClick={onConfirm}>
-            Delete
+            {type=="Instructor"?"Delete Instructor and all Courses Related":"Delete Course"}
           </button>
         </div>
+
       </div>
     </div>
   ,document.body )
