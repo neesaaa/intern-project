@@ -1,6 +1,10 @@
 # 🧠 Project Overview
 
-This project was refactored from a **multi-database + Redis** architecture into a **single unified database** for simplicity and consistency.
+This project was refactored from a **multi-database + Redis** architecture  
+(still in ![Master Branch](https://img.shields.io/badge/branch-master-blue))  
+into a **single unified database**  
+(now in ![Combined DB Branch](https://img.shields.io/badge/branch-combined--db-green))  
+for simplicity and consistency.
 
 ---
 
