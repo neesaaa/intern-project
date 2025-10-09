@@ -40,10 +40,7 @@ namespace persistence.Data.Migrations
             modelBuilder.Entity("DomainLayer.Models.BasketModule.BasketItem", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("BasketId")
                         .HasColumnType("int");

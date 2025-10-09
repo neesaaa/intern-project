@@ -145,6 +145,10 @@ namespace Service
             }
 
             var newInstructor = _mapper.Map<AddOrUpdateInstructor, Instructor>(dto);
+            if (dto.ImageFile != null)
+            {
+                newInstructor.ImageUrl = await _fileService.SaveImageAsync(dto.ImageFile, "Instructors");
+            }
             await repo.AddAsync(newInstructor);
             await _unit.SaveChnagesAsync();
 

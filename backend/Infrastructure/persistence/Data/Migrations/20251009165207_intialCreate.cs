@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace persistence.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class intialcreate : Migration
+    public partial class intialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -213,8 +213,7 @@ namespace persistence.Data.Migrations
                 name: "BasketItems",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     CourseName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PictureUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TotalHours = table.Column<int>(type: "int", nullable: false),
@@ -298,7 +297,7 @@ namespace persistence.Data.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LecturesNumber = table.Column<int>(type: "int", nullable: false),
                     TotalHours = table.Column<decimal>(type: "decimal(8,2)", nullable: false),
-                    CourseId = table.Column<int>(type: "int", nullable: true),
+                    CourseId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")
                 },
                 constraints: table =>
@@ -308,7 +307,8 @@ namespace persistence.Data.Migrations
                         name: "FK_CourseSections_Courses_CourseId",
                         column: x => x.CourseId,
                         principalTable: "Courses",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
