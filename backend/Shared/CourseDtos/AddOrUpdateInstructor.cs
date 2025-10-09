@@ -1,5 +1,6 @@
 ﻿    using DomainLayer.Models;
-    using System;
+using Microsoft.AspNetCore.Http;
+using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
@@ -15,5 +16,7 @@
             public string Name { get; set; } = default!;
             public Title Title { get; set; } = default!;
             public string Description { get; set; } = default!;
-        }
+            public IFormFile? ImageFile { get; set; }
+
     }
+}

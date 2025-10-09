@@ -14,8 +14,14 @@ namespace persentation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AuthController(IAuthinticationService _Auth) :ControllerBase
+    public class AuthController :ControllerBase
     {
+        private readonly IAuthinticationService _Auth;
+
+        public AuthController(IAuthinticationService auth)
+        {
+            _Auth = auth;
+        }
         [HttpPost("Login")]
         public async Task<ActionResult<UserDto>> LoginAsync(LoginDto loginDto)
         {

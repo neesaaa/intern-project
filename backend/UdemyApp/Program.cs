@@ -11,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using persistence;
-using persistence.Data.Identity;
 using Service;
 using Service.profiles;
 using Service_Abstraction;
@@ -49,11 +48,9 @@ namespace UdemyApp
 
 
             builder.Services.AddOpenApi();
-            builder.Services.AddDbContext<StoreDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-            builder.Services.AddDbContext<JWTIdentityDbContext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection"));
-            });
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 
             builder.Services.AddAutoMapper(cfg =>
@@ -78,7 +75,7 @@ namespace UdemyApp
                     {
                         EndPoints = { "redis-17600.c16.us-east-1-3.ec2.redns.redis-cloud.com:17600" }, 
                         User = "default",                        
-                        Password = "hSt70XVJgcLy8bk9JO9aKciooBWyjC34", 
+                        Password = "hSt70XVJgcLy8bk9JO9aKciooBWyjC34",
                     };
                     return ConnectionMultiplexer.Connect(options);
                 });
@@ -87,7 +84,7 @@ namespace UdemyApp
             {
                 options.User.RequireUniqueEmail = true;
             })
-            .AddEntityFrameworkStores<JWTIdentityDbContext>();
+            .AddEntityFrameworkStores<AppDbContext>();
 
             builder.Services.AddCors(options =>
             {
@@ -136,14 +133,13 @@ namespace UdemyApp
             if (app.Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.MapOpenApi();
+            }
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "UdemyApp API v1");
                     c.RoutePrefix = string.Empty;   
                 });
-            }
             using var scope = app.Services.CreateScope();
             var services = scope.ServiceProvider;
 

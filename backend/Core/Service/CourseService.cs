@@ -2,6 +2,7 @@
 using DomainLayer.Contracts;
 using DomainLayer.Exceptions;
 using DomainLayer.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Service.Specifications.CourseSpecifications;
 using Service_Abstraction;
 using Shared;
@@ -125,8 +126,17 @@ namespace Service
                 var existing = await repo.GetByIdAsync(dto.Id.Value);
                 if (existing == null)
                     throw new NotFoundInstructor(dto.Id.Value);
-
                 _mapper.Map(dto, existing);
+
+
+                if (dto.ImageFile != null)
+                {
+                    if (!string.IsNullOrEmpty(existing.ImageUrl))
+                        await _fileService.DeleteImageAsync(existing.ImageUrl);
+
+                    existing.ImageUrl = await _fileService.SaveImageAsync(dto.ImageFile, "Instructors");
+                }
+
 
                 repo.Update(existing);
                 await _unit.SaveChnagesAsync();
@@ -187,5 +197,18 @@ namespace Service
             return _mapper.Map<Course, CourseCardDto>(existingCourse);
         }
 
+        public async Task DeleteCourse(int id)
+        {
+            var repo= _unit.GetRepo<Course>();
+            var Course = await repo.GetByIdAsync(id);
+            if (Course == null)
+                throw new NotFoundInstructor(id);
+
+            repo.Remove(Course);
+            var res =await _unit.SaveChnagesAsync();
+            if (res < 1)
+                throw new Exception("error saving changes");
+
+        }
     }
 }

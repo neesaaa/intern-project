@@ -11,6 +11,8 @@
                 public string Name { get; set; } = default!;
                 public int LecturesNumber { get; set; }
                 public decimal TotalHours { get; set; }
+                public int CourseId { get; set; }
+                public Course Course { get; set; } = default!;
 
             }
         }

@@ -17,14 +17,14 @@ namespace persistence
                 await roleManager.CreateAsync(new IdentityRole<int>("Admin"));
             }
 
-            var adminEmail = "Admin@gmail.com";
+            var adminEmail = "admin@byway.com";
             var existingUser = await userManager.FindByEmailAsync(adminEmail);
 
             if (existingUser == null)
             {
                 var adminUser = new ApplicationUser
                 {
-                    UserName = "Admin",
+                    UserName = "Admin1",
                     Email = adminEmail,
                     DisplayName = "Admin",
                     FirstName = "Nassar",
@@ -32,7 +32,7 @@ namespace persistence
                     EmailConfirmed = true
                 };
 
-                var result = await userManager.CreateAsync(adminUser, "zxcvbnmasD11@");
+                var result = await userManager.CreateAsync(adminUser, "Admin@123");
 
                 if (result.Succeeded)
                 {
