@@ -3,7 +3,7 @@ import StarReadOnly from './StarReadOnly'
 const CourseCard = ({ Name, InstructorName,Rate,TotalLectures,TotalHours,Cost,ImageUrl,Id,style,Category  }) => {
         return (
             <Link to={`/courses/${Id}`} >
-                <div className={`flex flex-col ${style} relative  border cursor-pointer border-border_color p-4 gap-3 lg:gap-5 text-black rounded-xl shadow-[0_0_8px_0_rgba(0,0,0,0.12)] min-w-40 md:min-w-75 scrollbar-hide`}>
+                <div className={`flex flex-col ${style} hover:scale-105 hover:border hover:border-amber-200  relative  border cursor-pointer border-border_color p-4 gap-3 lg:gap-5 text-black rounded-xl shadow-[0_0_8px_0_rgba(0,0,0,0.12)] min-w-40 md:min-w-75 scrollbar-hide`}>
                     {ImageUrl && <img src={ImageUrl  } alt="" className='w-full rounded-lg h-40 object-cover' />}
                     <div className='flex flex-col gap-3 '>
                         <div className='flex flex-col gap-3 '>

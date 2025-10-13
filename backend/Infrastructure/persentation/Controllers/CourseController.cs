@@ -57,7 +57,7 @@ namespace persentation.Controllers
 
         }
         [HttpPost("Instructor/AddOrUpdate")]
-        public async Task<IActionResult> InstructorsAddOrUpdate([FromBody]AddOrUpdateInstructor dto)
+        public async Task<IActionResult> InstructorsAddOrUpdate([FromForm] AddOrUpdateInstructor dto)
         {
 
             var result = await _service.UpdateOrAddAsync(dto);
@@ -84,6 +84,17 @@ namespace persentation.Controllers
             var result = await _service.UpdateCourseAsync(id, dto);
             return Ok(new { message = "Course updated successfully", data = result });
         }
+
+
+        [HttpDelete("Delete/{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteCourse(int id)
+        {
+            await _service.DeleteCourse(id);
+            return NoContent();
+        }
+
+
 
 
     }

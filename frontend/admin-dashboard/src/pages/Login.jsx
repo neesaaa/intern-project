@@ -30,18 +30,22 @@ const Login = () => {
   const mutation = useMutation({
     mutationFn: async (data) => {
       setIsLoading(true);
-      const res = await fetch("https://localhost:7031/api/Auth/AdminLogin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const res = await fetch(
+        "https://nassar1-001-site1.rtempurl.com/api/Auth/AdminLogin",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       if (!res.ok) throw new Error("Network response was not ok");
       return res.json();
     },
     onSuccess: async (data) => {
       setIsLoading(false);
+      localStorage.setItem('Admintoken',data.Token)
 
       setTokenAtomValue(data.Token);
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace persistence.Data
 {
-    public class DataSeeding(StoreDbContext _context):IDataSeeding
+    public class DataSeeding(AppDbContext _context):IDataSeeding
     {
         public async Task DataSeedAsync()
         {

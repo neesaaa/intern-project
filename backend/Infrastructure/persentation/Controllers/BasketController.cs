@@ -28,7 +28,7 @@ using System.Threading.Tasks;
                 if (!TryGetUserId(out var userId))
                     return Unauthorized();
                 var basket= await _basketService.GetBasketAsync(userId);
-                    return Ok(basket);
+                return Ok(basket);
             }
 
             [HttpPost]

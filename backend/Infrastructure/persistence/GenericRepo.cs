@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace persistence
 {
-    public class GenericRepo<T>(StoreDbContext _context) : IGenericRepo<T> where T : BaseEntity
+    public class GenericRepo<T>(AppDbContext _context) : IGenericRepo<T> where T : BaseEntity
     {
         public async Task AddAsync(T Entity) => await _context.Set<T>().AddAsync(Entity);
 

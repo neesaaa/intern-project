@@ -35,7 +35,7 @@ const checkoutSchema = z
       .optional(),
     expiryDate: z
       .string()
-      .regex(/^(0[1-9]|1[0-2])\/\d{4}$/, "Expiry date must be in MM/YY format")
+      .regex(/^(0[1-9]|1[0-2])\/\d{4}$/, "Expiry date must be in MM/YYYY format")
       .optional(),
     cvc: z
       .string()
@@ -71,27 +71,23 @@ const Checkoutpage = () => {
 
   const mutation = useMutation({
     mutationFn: async (data) => {
-      const res = await fetch("https://localhost:7031/api/Order", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          Address: {
-            Country: data.country,
-            State: data.state,
+      const res = await fetch(
+        "https://nassar1-001-site1.rtempurl.com/api/Order",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
-          BasketId: 2,
-        }),
-      });
-      console.log(JSON.stringify({
-          Address: {
-            Country: data.country,
-            State: data.state,
-          },
-          BasketId: 2,
-        }));
+          body: JSON.stringify({
+            Address: {
+              Country: data.country,
+              State: data.state,
+            },
+            BasketId: 2,
+          }),
+        }
+      );
       if (!res.ok) throw new Error("Failed to place order");
       return res.json();
     },
@@ -275,7 +271,7 @@ const Checkoutpage = () => {
         <button
           type="submit"
           form="checkout-form"
-          disabled={cart.length==0}
+          disabled={cart.length == 0}
           className="text-white w-full bg-black disabled:bg-gray-400 rounded-md py-3 px-2 text-[14px] leading-[1.6] tracking-[0em] cursor-pointer"
         >
           procced to Checkout

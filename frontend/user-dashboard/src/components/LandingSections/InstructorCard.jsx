@@ -1,8 +1,7 @@
-import instructorImg from '../../assets/HeroSection/3bc5d9f9ab3038f8d90aa12ffe88c04090262b02.png'
 import { FaStar } from "react-icons/fa";
 const InstructorCard = ({ Rate, ImageUrl, Name, Title }) => {
     return (
-        <div className="flex flex-col items-center gap-4 p-4 min-w-56 md:max-w-57 lg:max-w-67 xl:max-w-77  shadow-[0_0_8px_0_rgba(0,0,0,0.12)] text-black border border-border_color rounded-lg">
+        <div className="flex hover:scale-105 hover:border hover:border-amber-200 flex-col items-center gap-4 p-4 min-w-56 md:max-w-57 lg:max-w-67 xl:max-w-77  shadow-[0_0_8px_0_rgba(0,0,0,0.12)] text-black border border-border_color rounded-lg">
             <img src={ImageUrl} alt="" className='w-55 object-cover h-36 object-top rounded-b-lg ' />
             <div className='flex flex-col gap-2 text-center'>
                 <h5 className='font-semibold leading-1.6 text-lg'>{Name}</h5>

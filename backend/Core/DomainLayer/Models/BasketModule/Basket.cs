@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Models.BasketModule
 {
-    public class Basket
+    public class Basket:BaseEntity
     {
-        public int Id { get; set; }
         public ICollection<BasketItem> Items { get; set; } = [];
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace persistence
 {
-    public class UnitOfWork(StoreDbContext _context) : IUnitOfWork
+    public class UnitOfWork(AppDbContext _context) : IUnitOfWork
     {
         private readonly Dictionary<string,object> repos = [];
         public IGenericRepo<TEntity> GetRepo<TEntity>() where TEntity : BaseEntity

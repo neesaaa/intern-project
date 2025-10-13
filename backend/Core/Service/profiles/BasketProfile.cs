@@ -13,7 +13,7 @@ namespace Service.profiles
     {
         public BasketProfile() {
             CreateMap<BasketItem, BasketItemDto>().ReverseMap();
-            CreateMap<Basket, BasketDto>().ReverseMap();
+            CreateMap<Basket, BasketDto>().ReverseMap();    
         }
     }
 }

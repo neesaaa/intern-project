@@ -18,7 +18,7 @@ import { toast } from "react-toastify";
 
 const fecthCoursePage = async (id) => {
   const response = await fetch(
-    `https://localhost:7031/api/Course/Course/${id}`
+    `https://nassar1-001-site1.rtempurl.com/api/Course/Course/${id}`
   );
   if (!response.ok) {
     throw new Error("Failed to fetch course");
@@ -39,7 +39,10 @@ const CourseDetailPage = () => {
       console.error("Failed to fetch course:", err);
     },
   });
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="w-12 h-12 self-center mx-auto rounded-full border-4 border-gray-200 border-t-gray-500 animate-spin"></div>
+    );
   if (error) return <div>Error loading course</div>;
 
   async function HandleAddtoCart() {
@@ -65,7 +68,6 @@ const CourseDetailPage = () => {
       Id: 12,
       Items: updatedCart,
     };
-    console.log("sending JSON:", JSON.stringify(orderObject));
 
     try {
       const data = await UpdateToBasket(token, orderObject);
@@ -144,23 +146,54 @@ const CourseDetailPage = () => {
         </div>
         {/*buttons*/}
         <div className="flex  items-center gap-2 md:gap-6 text-black text-[14px] leading-[150%] px-3 md:px-20  ">
-          <button onClick={()=> document.getElementById('description').scrollIntoView({behavior:'smooth'})} className="py-4 px-2 md:px-6 bg-blue-50 border border-gray-300 rounded-lg cursor-pointer">
+          <button
+            onClick={() =>
+              document
+                .getElementById("description")
+                .scrollIntoView({ behavior: "smooth" })
+            }
+            className="py-4 px-2 md:px-6 bg-blue-50 border border-gray-300 rounded-lg cursor-pointer"
+          >
             Description
           </button>
-          <button onClick={()=> document.getElementById('instructor').scrollIntoView({behavior:'smooth'})} className="py-4 px-2 md:px-6 bg-primary-50 border border-gray-300 rounded-lg cursor-pointer ">
+          <button
+            onClick={() =>
+              document
+                .getElementById("instructor")
+                .scrollIntoView({ behavior: "smooth" })
+            }
+            className="py-4 px-2 md:px-6 bg-primary-50 border border-gray-300 rounded-lg cursor-pointer "
+          >
             Instructor
           </button>
-          <button onClick={()=> document.getElementById('content').scrollIntoView({behavior:'smooth'})}  className="py-4 px-2 md:px-6 bg-primary-50 border border-gray-300 rounded-lg cursor-pointer">
+          <button
+            onClick={() =>
+              document
+                .getElementById("content")
+                .scrollIntoView({ behavior: "smooth" })
+            }
+            className="py-4 px-2 md:px-6 bg-primary-50 border border-gray-300 rounded-lg cursor-pointer"
+          >
             Content
           </button>
-          <button onClick={()=> document.getElementById('reviews').scrollIntoView({behavior:'smooth'})} className="py-4 px-2 md:px-6 bg-primary-50 border border-gray-300 rounded-lg cursor-pointer">
+          <button
+            onClick={() =>
+              document
+                .getElementById("reviews")
+                .scrollIntoView({ behavior: "smooth" })
+            }
+            className="py-4 px-2 md:px-6 bg-primary-50 border border-gray-300 rounded-lg cursor-pointer"
+          >
             Reviews
           </button>
         </div>
         {/*line*/}
         <div className="bg-gray-300 h-0.5 mx-3 md:mx-20"></div>
         {/*Course Describtion & Certification*/}
-        <div id="description" className="flex flex-col px-3 md:px-20 gap-1 text-black">
+        <div
+          id="description"
+          className="flex flex-col px-3 md:px-20 gap-1 text-black"
+        >
           <div>
             <h4 className="font-semibold text-[20px] leading-[150%]">
               Course Describtion
@@ -170,7 +203,10 @@ const CourseDetailPage = () => {
             </p>
           </div>
         </div>
-        <div id="certification"  className="flex flex-col px-3 md:px-20 gap-1 text-black">
+        <div
+          id="certification"
+          className="flex flex-col px-3 md:px-20 gap-1 text-black"
+        >
           <div>
             <h4 className="font-semibold text-[20px] leading-[150%]">
               Certification
@@ -183,7 +219,7 @@ const CourseDetailPage = () => {
         {/*line*/}
         <div className="bg-gray-300 h-0.5 mx-3 md:mx-20"></div>
         {/* Instructor */}
-        <div id="instructor"  className="flex flex-col gap-4 px-3 md:px-20 ">
+        <div id="instructor" className="flex flex-col gap-4 px-3 md:px-20 ">
           <h4 className="font-semibold text-[20px] leading-[150%]">
             Instructor
           </h4>

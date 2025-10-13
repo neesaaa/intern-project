@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X, ImageIcon, Camera, Star, ChevronDown } from "lucide-react";
 
 export default function ModalAddorUpdate({
@@ -7,22 +7,28 @@ export default function ModalAddorUpdate({
   isEdit,
   instructor,
   isView,
-  editMutation
+  editMutation,
 }) {
   if (isView) isEdit = true;
-    const [rate, setRate] = useState(isEdit ? (instructor.Rate || 0) : 0);
+  const [rate, setRate] = useState(isEdit ? instructor.Rate || 0 : 0);
   const [hoveredStar, setHoveredStar] = useState(0);
+  const [file, setFile] = useState(null);
 
-  const [previewUrl, setPreviewUrl] = useState(
-    isEdit ? instructor.ImageUrl || null : null
-  );
+  const [previewUrl, setPreviewUrl] = useState(null);
+  useEffect(() => {
+    if (isEdit && instructor?.ImageUrl) {
+      setPreviewUrl(instructor.ImageUrl);
+    } else {
+      setPreviewUrl(null);
+    }
+  }, [instructor, isEdit]);
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      const url = URL.createObjectURL(selectedFile);
       setPreviewUrl(url);
-      console.log("Preview URL:", url);
     }
   };
 
@@ -30,19 +36,17 @@ export default function ModalAddorUpdate({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData();
 
-    const payload = {
-      Id: isEdit ? instructor.Id : null, 
-      Name: formData.get("name"),
-      Rate: rate,
-      ImageUrl:"images/Instructors/instructor.png",
-      Title: formData.get("Title"),
-      Description: formData.get("description"),
-    };
-    console.log(payload)
-    editMutation.mutate(payload);
+    if (isEdit) formData.append("Id", instructor.Id);
+    formData.append("Name", e.target.name.value);
+    formData.append("Rate", rate);
+    formData.append("Title", e.target.Title.value);
+    formData.append("Description", e.target.description.value);
+    formData.append("ImageUrl", `images/Instructors/${file?.name || ""}`);
+    if (file) formData.append("ImageFile", file);
+
+    editMutation.mutate(formData);
     onClose();
   };
   return (
@@ -175,22 +179,24 @@ export default function ModalAddorUpdate({
             />
           </div>
 
-          {!isView &&<div className="flex gap-4">
-            <button
-              type="button"
-              variant="outline"
-              className="flex-1 border-gray-300 bg-[#EDEDED] text-[#8C8C8C] hover:bg-gray-400 rounded-lg"
-              onClick={onClose}
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="flex-2 bg-gray-900 text-white hover:bg-gray-500 rounded-lg px-6 py-3"
-            >
-              {isEdit?"Update":"Add"}
-            </button>
-          </div>}
+          {!isView && (
+            <div className="flex gap-4">
+              <button
+                type="button"
+                variant="outline"
+                className="flex-1 border-gray-300 bg-[#EDEDED] text-[#8C8C8C] hover:bg-gray-400 rounded-lg"
+                onClick={onClose}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="flex-2 bg-gray-900 text-white hover:bg-gray-500 rounded-lg px-6 py-3"
+              >
+                {isEdit ? "Update" : "Add"}
+              </button>
+            </div>
+          )}
         </form>
       </div>
     </div>

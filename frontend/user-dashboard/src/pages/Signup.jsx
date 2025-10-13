@@ -42,38 +42,37 @@ const Signup = () => {
   const [loading, setIsLoading] = useState(false);
   const [error, setError] = useState({});
   const [_, setTokenAtomValue] = useAtom(tokenAtom);
-  const [__,setCart]=useAtom(cartAtom);
-
+  const [__, setCart] = useAtom(cartAtom);
 
   const navigate = useNavigate();
 
   const mutation = useMutation({
     mutationFn: async (data) => {
       setIsLoading(true);
-      const res = await fetch("https://localhost:7031/api/Auth/Signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const res = await fetch(
+        "https://nassar1-001-site1.rtempurl.com/api/Auth/Signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       if (!res.ok) {
         throw new Error("Failed to signup");
       }
-      console.log("done");
       return res.json();
     },
     onSuccess: async (data) => {
       setIsLoading(false);
-
+      localStorage.setItem;
       setTokenAtomValue(data.Token);
       localStorage.setItem("token", data.Token);
 
-      const basket = await fetchBasket(data.Token);
-      setCart(basket.Items); 
-      console.log(basket);
-      toast.success(`Welcome back ${data.DisplayName}`);
+      await fetchBasket(data.Token);
       navigate("/");
+      toast.success(`Welcome back ${data.DisplayName}`);
     },
     onError: () => {
       setIsLoading(false);
@@ -99,18 +98,15 @@ const Signup = () => {
         ) {
           passwordMismatch = true;
         }
-        console.log(issue.message);
       }
       if (passwordMismatch) {
         toast.error("Passwords don't match");
       }
-      console.log("s");
       setError(errors);
       return;
     }
     setIsLoading(true);
     const { ConfirmPassword, ...payload } = data;
-    console.log(payload);
     mutation.mutate(payload);
   };
 
